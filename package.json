@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
   "homepage": "https://yfii.finance/",
-=======
-  "homepage": "./",
->>>>>>> 73ff103e223ba19571c2d9ac7c915a43d901572e
   "name": "ygov-finance",
   "version": "0.0.1",
   "private": true,
