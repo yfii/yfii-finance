@@ -74,9 +74,28 @@
   
   "RewardPools.Slogan": "本项目处于测试阶段，请自行评估风险。",
   "RewardPools.Wallet": "钱包",
-  "RewardPools.WhichToken": "您希望抵押哪种代币?",
+  "RewardPools.WhichTokens": "您希望抵押哪种代币?",
   "RewardPools.Open": "打开",
   "RewardPools.SupportedTokens": "支持的代币",
-  "RewardPools.NoSupportedTokens": "当前不支持的代币"
+  "RewardPools.NoSupportedTokens": "当前不支持的代币",
+
+  "Stake.Slogan": "本项目处于测试阶段，请自行评估风险。",
+  "Stake.Wallet": "钱包",
+  "Stake.YourBalance": "您的余额",
+  "Stake.CurrentlyStaked": "当前抵押",
+  "Stake.RewardsAvailable": "已获得奖励",
+  "Stake.yCRVRewardRequirements": "yCRV 奖励要求",
+  "Stake.YouMustHaveVoted": "You must have voted in a proposal recently",
+  "Stake.YouMustHave": "您必须在治理池中抵押至少 1000 个 BPT。",
+  "Stake.StakeTokens": "抵押代币",
+  "Stake.ClaimRewards": "提取奖励",
+  "Stake.UnstakeTokens": "取消抵押",
+  "Stake.Exit": "退出：提取奖励并取消代币抵押",
+  "Stake.UnstakingTokens": "仅当您的所有投票关闭后，方可取消抵押代币。这些投票在区块：",
+  "Stake.StakeYourTokens": "抵押您的代币",
+  "Stake.Stake": "抵押",
+  "Stake.UnstakeYourTokens": "将您的代币取消抵押",
+  "Stake.Back": "返回",
+  "Stake.Unstake": "取消抵押"
   
 }

@@ -322,7 +322,7 @@ class Stake extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, t } = this.props;
     const {
       value,
       account,
@@ -345,36 +345,36 @@ class Stake extends Component {
 
     return (
       <div className={ classes.root }>
-        <Typography variant={'h5'} className={ classes.disaclaimer }>This project is in beta. Use at your own risk.</Typography>
+        <Typography variant={'h5'} className={ classes.disaclaimer }>{t('Stake.Slogan')}</Typography>
         <div className={ classes.intro }>
           <Card className={ classes.addressContainer } onClick={this.overlayClicked}>
-            <Typography variant={ 'h3'} className={ classes.walletTitle } noWrap>Wallet</Typography>
+            <Typography variant={ 'h3'} className={ classes.walletTitle } noWrap>{t('Stake.Wallet')}</Typography>
             <Typography variant={ 'h4'} className={ classes.walletAddress } noWrap>{ address }</Typography>
             <div style={{ background: '#DC6BE5', opacity: '1', borderRadius: '10px', width: '10px', height: '10px', marginRight: '3px', marginTop:'3px', marginLeft:'6px' }}></div>
           </Card>
         </div>
         <div className={ classes.overview }>
           <div className={ classes.overviewField }>
-            <Typography variant={ 'h3' } className={ classes.overviewTitle }>Your Balance</Typography>
+            <Typography variant={ 'h3' } className={ classes.overviewTitle }>{t('Stake.YourBalance')}</Typography>
             <Typography variant={ 'h2' } className={ classes.overviewValue }>{ pool.tokens[0].balance ? pool.tokens[0].balance.toFixed(2) : "0" }  { pool.tokens[0].symbol }</Typography>
           </div>
           <div className={ classes.overviewField }>
-            <Typography variant={ 'h3' } className={ classes.overviewTitle }>Currently Staked</Typography>
+            <Typography variant={ 'h3' } className={ classes.overviewTitle }>{t('Stake.CurrentlyStaked')}</Typography>
             <Typography variant={ 'h2' } className={ classes.overviewValue }>{ pool.tokens[0].stakedBalance ? pool.tokens[0].stakedBalance.toFixed(2) : "0" }</Typography>
           </div>
           <div className={ classes.overviewField }>
-            <Typography variant={ 'h3' } className={ classes.overviewTitle }>Rewards Available</Typography>
+            <Typography variant={ 'h3' } className={ classes.overviewTitle }>{t('Stake.RewardsAvailable')}</Typography>
             <Typography variant={ 'h2' } className={ classes.overviewValue }>{ pool.tokens[0].rewardsSymbol == '$' ? pool.tokens[0].rewardsSymbol : '' } { pool.tokens[0].rewardsAvailable ? pool.tokens[0].rewardsAvailable.toFixed(2) : "0" } { pool.tokens[0].rewardsSymbol != '$' ? pool.tokens[0].rewardsSymbol : '' }</Typography>
           </div>
         </div>
         { pool.id === 'Fee Rewards' &&
           <div className={ classes.actions }>
-            <Typography className={ classes.stakeTitle } variant={ 'h3'}>yCRV reward requirements</Typography>
+            <Typography className={ classes.stakeTitle } variant={ 'h3'}>{t('Stake.yCRVRewardRequirements')}</Typography>
             <div className={ classes.requirement }>
-              <Typography variant={'h4'}>You must have voted in a proposal recently</Typography><Typography variant={'h4'} className={ classes.check }>{ voteLockValid ? <CheckIcon style={{ color: colors.green }} /> : <ClearIcon style={{ color: colors.red }} /> }</Typography>
+              <Typography variant={'h4'}>{t('Stake.YouMustHaveVoted')}</Typography><Typography variant={'h4'} className={ classes.check }>{ voteLockValid ? <CheckIcon style={{ color: colors.green }} /> : <ClearIcon style={{ color: colors.red }} /> }</Typography>
             </div>
             <div className={ classes.requirement }>
-              <Typography variant={'h4'}>You must have at least 1000 BPT staked in the Governance pool</Typography><Typography variant={'h4'} className={ classes.check }>{ balanceValid ? <CheckIcon style={{ color: colors.green }} /> : <ClearIcon style={{ color: colors.red }} /> }</Typography>
+              <Typography variant={'h4'}>{t('Stake.YouMustHave')}</Typography><Typography variant={'h4'} className={ classes.check }>{ balanceValid ? <CheckIcon style={{ color: colors.green }} /> : <ClearIcon style={{ color: colors.red }} /> }</Typography>
             </div>
           </div>
         }
@@ -391,7 +391,7 @@ class Stake extends Component {
   }
 
   renderOptions = () => {
-    const { classes } = this.props;
+    const { classes, t } = this.props;
     const { loading, pool, voteLockValid, balanceValid, voteLock } = this.state
 
     return (
@@ -405,7 +405,7 @@ class Stake extends Component {
             disabled={ !pool.depositsEnabled || (pool.id === 'Fee Rewards' ?  (loading || !voteLockValid || !balanceValid) : loading) }
             onClick={ () => { this.navigateInternal('stake') } }
             >
-            <Typography className={ classes.stakeButtonText } variant={ 'h4'}>Stake Tokens</Typography>
+            <Typography className={ classes.stakeButtonText } variant={ 'h4'}>{t('Stake.StakeTokens')}</Typography>
           </Button>
         </div>
         <div className={ classes.actionContainer}>
@@ -417,7 +417,7 @@ class Stake extends Component {
             disabled={ loading }
             onClick={ () => { this.onClaim() } }
             >
-            <Typography className={ classes.buttonText } variant={ 'h4'}>Claim Rewards</Typography>
+            <Typography className={ classes.buttonText } variant={ 'h4'}>{t('Stake.ClaimRewards')}</Typography>
           </Button>
         </div>
         <div className={ classes.actionContainer}>
@@ -429,7 +429,7 @@ class Stake extends Component {
             disabled={ (pool.id === 'Governance' ? (loading || voteLockValid ) : loading  ) }
             onClick={ () => { this.navigateInternal('unstake') } }
             >
-            <Typography className={ classes.buttonText } variant={ 'h4'}>Unstake Tokens</Typography>
+            <Typography className={ classes.buttonText } variant={ 'h4'}>{t('Stake.UnstakeTokens')}</Typography>
           </Button>
         </div>
         <div className={ classes.actionContainer}>
@@ -441,10 +441,10 @@ class Stake extends Component {
             disabled={ (pool.id === 'Governance' ? (loading || voteLockValid ) : loading  ) }
             onClick={ () => { this.onExit() } }
             >
-            <Typography className={ classes.buttonText } variant={ 'h4'}>Exit: Claim and Unstake</Typography>
+            <Typography className={ classes.buttonText } variant={ 'h4'}>{t('Stake.Exit')}</Typography>
           </Button>
         </div>
-        { (pool.id === 'Governance' && voteLockValid) && <Typography variant={'h4'} className={ classes.voteLockMessage }>Unstaking tokens only allowed once all your pending votes have closed at Block: {voteLock}</Typography>}
+        { (pool.id === 'Governance' && voteLockValid) && <Typography variant={'h4'} className={ classes.voteLockMessage }>{t('Stake.UnstakingTokens')}{voteLock}</Typography>}
       </div>
     )
   }
@@ -454,14 +454,14 @@ class Stake extends Component {
   }
 
   renderStake = () => {
-    const { classes } = this.props;
+    const { classes, t } = this.props;
     const { loading, pool } = this.state
 
     const asset = pool.tokens[0]
 
     return (
       <div className={ classes.actions }>
-        <Typography className={ classes.stakeTitle } variant={ 'h3'}>Stake your tokens</Typography>
+        <Typography className={ classes.stakeTitle } variant={ 'h3'}>{t('Stake.StakeYourTokens')}</Typography>
         { this.renderAssetInput(asset, 'stake') }
         <div className={ classes.stakeButtons }>
           <Button
@@ -471,7 +471,7 @@ class Stake extends Component {
             disabled={ loading }
             onClick={ () => { this.navigateInternal('options') } }
           >
-            <Typography variant={ 'h4'}>Back</Typography>
+            <Typography variant={ 'h4'}>{t('Stake.Back')}</Typography>
           </Button>
           <Button
             className={ classes.stakeButton }
@@ -480,7 +480,7 @@ class Stake extends Component {
             disabled={ loading }
             onClick={ () => { this.onStake() } }
           >
-            <Typography variant={ 'h4'}>Stake</Typography>
+            <Typography variant={ 'h4'}>{t('Stake.Stake')}</Typography>
           </Button>
         </div>
 
@@ -489,14 +489,14 @@ class Stake extends Component {
   }
 
   renderUnstake = () => {
-    const { classes } = this.props;
+    const { classes, t } = this.props;
     const { loading, pool, voteLockValid } = this.state
 
     const asset = pool.tokens[0]
 
     return (
       <div className={ classes.actions }>
-        <Typography className={ classes.stakeTitle } variant={ 'h3'}>Unstake your tokens</Typography>
+        <Typography className={ classes.stakeTitle } variant={ 'h3'}>{t('Stake.UnstakeYourTokens')}</Typography>
         { this.renderAssetInput(asset, 'unstake') }
         <div className={ classes.stakeButtons }>
           <Button
@@ -506,7 +506,7 @@ class Stake extends Component {
             disabled={ loading }
             onClick={ () => { this.navigateInternal('options') } }
           >
-            <Typography variant={ 'h4'}>Back</Typography>
+            <Typography variant={ 'h4'}>{t('Stake.Back')}</Typography>
           </Button>
           <Button
             className={ classes.stakeButton }
@@ -515,7 +515,7 @@ class Stake extends Component {
             disabled={ (pool.id === 'Governance' ? (loading || voteLockValid ) : loading  ) }
             onClick={ () => { this.onUnstake() } }
           >
-            <Typography variant={ 'h4'}>Unstake</Typography>
+            <Typography variant={ 'h4'}>{t('Stake.Unstake')}</Typography>
           </Button>
         </div>
 

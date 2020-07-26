@@ -102,8 +102,27 @@
 
   "RewardPools.Slogan": "This project is in beta. Use at your own risk.",
   "RewardPools.Wallet": "Wallet",
-  "RewardPools.WhichToken": "Which tokens would you like to stake?",
+  "RewardPools.WhichTokens": "Which tokens would you like to stake?",
   "RewardPools.Open": "Open",
   "RewardPools.SupportedTokens": "Supported Tokens",
-  "RewardPools.NoSupportedTokens": "No supported tokens currently"
+  "RewardPools.NoSupportedTokens": "No supported tokens currently",
+
+  "Stake.Slogan": "This project is in beta. Use at your own risk.",
+  "Stake.Wallet": "Wallet",
+  "Stake.YourBalance": "Your Balance",
+  "Stake.CurrentlyStaked": "Currently Staked",
+  "Stake.RewardsAvailable": "Rewards Available",
+  "Stake.yCRVRewardRequirements": "yCRV reward requirements",
+  "Stake.YouMustHaveVoted": "You must have voted in a proposal recently",
+  "Stake.YouMustHave": "You must have at least 1000 BPT staked in the Governance pool.",
+  "Stake.StakeTokens": "Stake Tokens",
+  "Stake.ClaimRewards": "Claim Rewards",
+  "Stake.UnstakeTokens": "Unstake Tokens",
+  "Stake.Exit": "Exit: Claim and Unstake",
+  "Stake.UnstakingTokens": "Unstaking tokens only allowed once all your pending votes have closed at Block:",
+  "Stake.StakeYourTokens": "Stake your tokens",
+  "Stake.Stake": "Stake",
+  "Stake.UnstakeYourTokens": "Unstake your tokens",
+  "Stake.Back": "Back",
+  "Stake.Unstake": "Unstake"
 }

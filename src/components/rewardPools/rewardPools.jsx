@@ -221,7 +221,7 @@ class RewardPools extends Component {
           </Card>
         </div>
         <div className={ classes.rewardPools }>
-          <Typography variant={ 'h3'} className={ classes.title } noWrap>{t('WhichTokens')}</Typography>
+          <Typography variant={ 'h3'} className={ classes.title } noWrap>{t('RewardPools.WhichTokens')}</Typography>
           {
             this.renderRewards()
           }
