@@ -75,5 +75,8 @@
   "RewardPools.Slogan": "本项目处于测试阶段，请自行评估风险。",
   "RewardPools.Wallet": "钱包",
   "RewardPools.WhichToken": "您希望抵押哪种代币?",
-  "RewardPools.Open": "打开"
+  "RewardPools.Open": "打开",
+  "RewardPools.SupportedTokens": "支持的代币",
+  "RewardPools.NoSupportedTokens": "当前不支持的代币"
+  
 }

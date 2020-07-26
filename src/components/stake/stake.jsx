@@ -649,4 +649,4 @@ class Stake extends Component {
 
 }
 
-export default withRouter(withStyles(styles)(Stake));
+export default withNamespaces()(withRouter(withStyles(styles)(Stake)));

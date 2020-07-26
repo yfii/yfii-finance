@@ -221,7 +221,7 @@ class RewardPools extends Component {
           </Card>
         </div>
         <div className={ classes.rewardPools }>
-          <Typography variant={ 'h3'} className={ classes.title } noWrap>{t('RewardPools.WhichToken')}</Typography>
+          <Typography variant={ 'h3'} className={ classes.title } noWrap>{t('WhichTokens')}</Typography>
           {
             this.renderRewards()
           }
@@ -252,8 +252,8 @@ class RewardPools extends Component {
       <Typography variant='h3' className={ classes.poolName }>{ rewardPool.id }</Typography>
       <Typography variant='h5' className={ classes.poolWebsite }><a href={ rewardPool.link } target="_blank">{ rewardPool.website }</a></Typography>
       <Typography varian='h4' className={ classes.tokensList } align='center'>
-        { rewardPool.tokens.length > 0 && "Supported Tokens: " + tokensList  }
-        { rewardPool.tokens.length == 0 && "No supported tokens currently"  }
+        { rewardPool.tokens.length > 0 && `${t('RewardPools.SupportedTokens')}: ` + tokensList  }
+        { rewardPool.tokens.length == 0 && t('RewardPools.NoSupportedTokens')  }
       </Typography>
       <Button
         variant="outlined"
