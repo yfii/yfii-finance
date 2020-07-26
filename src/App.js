@@ -3,7 +3,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import {
   Switch,
-  HashRouter as Route
+  HashRouter as Router,
+  Route
 } from "react-router-dom";
 import IpfsRouter from 'ipfs-react-router'
 
