@@ -1,7 +1,7 @@
 const config = {
   infuraProvider: 'https://mainnet.infura.io/v3/bd80ce1ca1f94da48e151bb6868bb150',
 
-  yCurveFiRewardsAddress: '0x343887B22FB4088ED3cFeDCdDb08c67C01ca639A',
+  yCurveFiRewardsAddress: '0x22A92Ee6FF3a8C6f33536797dDe38DeBb0E0eD93',
   yCurveFiRewardsABI: [{
     "anonymous": false,
     "inputs": [{
