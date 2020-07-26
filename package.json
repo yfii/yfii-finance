@@ -1,5 +1,5 @@
 {
-  "homepage": "https://yfii.github.io/ygov-finance",
+  "homepage": "https://yfii.finance/",
   "name": "ygov-finance",
   "version": "0.0.1",
   "private": true,
@@ -44,8 +44,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "buildAndDeploy": "react-scripts build && echo 'yfii.finance' >> ./build/CNAME && gh-pages -d build",
-    "deploy": "echo 'yfii.finance' >> ./build/CNAME && gh-pages -d build"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
   },
   "eslintConfig": {
     "extends": "react-app"
