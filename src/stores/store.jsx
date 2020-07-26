@@ -121,13 +121,13 @@ class Store {
           tokens: [
             {
               id: 'ycurvefi',
-              address: '0xdF5e0e81Dff6FAF3A7e52BA697820c5e32D806A8',
+              address: '0x49bD7631856078257d5Aef996Cb1218519eA1Db4',
               symbol: 'curve.fi',
               abi: config.erc20ABI,
               decimals: 18,
               rewardsAddress: config.yCurveFiRewardsAddress,
               rewardsABI: config.yCurveFiRewardsABI,
-              rewardsSymbol: 'YFI',
+              rewardsSymbol: 'YFII',
               decimals: 18,
               balance: 0,
               stakedBalance: 0,
