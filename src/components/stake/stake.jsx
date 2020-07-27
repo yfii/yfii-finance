@@ -636,7 +636,7 @@ class Stake extends Component {
 
   onChange = (value, event) => {
     let val = []
-    val[event.target.id] = value < event.target.value ? value + '' : event.target.value
+    val[event.target.id] = value > event.target.value ? event.target.value: value + ''
     this.setState(val)
   }
 
