@@ -99,11 +99,11 @@ class Store {
       proposals: [
       ],
       claimableAsset: {
-        id: 'yfi',
+        id: 'YFII',
         name: 'yearn.finance',
         address: config.yfiAddress,
         abi: config.yfiABI,
-        symbol: 'YFI',
+        symbol: 'YFII',
         balance: 0,
         decimals: 18,
         rewardAddress: '0xfc1e690f61efd961294b3e1ce3313fbd8aa4f85d',
@@ -150,7 +150,7 @@ class Store {
               decimals: 18,
               rewardsAddress: config.balancerRewardsAddress,
               rewardsABI: config.balancerRewardsABI,
-              rewardsSymbol: 'YFI',
+              rewardsSymbol: 'YFII',
               decimals: 18,
               balance: 0,
               stakedBalance: 0,
@@ -173,7 +173,7 @@ class Store {
         //       decimals: 18,
         //       rewardsAddress: config.governanceAddress,
         //       rewardsABI: config.governanceABI,
-        //       rewardsSymbol: 'YFI',
+        //       rewardsSymbol: 'YFII',
         //       decimals: 18,
         //       balance: 0,
         //       stakedBalance: 0,
@@ -189,9 +189,9 @@ class Store {
         //   depositsEnabled: true,
         //   tokens: [
         //     {
-        //       id: 'yfi',
+        //       id: 'YFII',
         //       address: config.yfiAddress,
-        //       symbol: 'YFI',
+        //       symbol: 'YFII',
         //       abi: config.yfiABI,
         //       decimals: 18,
         //       rewardsAddress: config.feeRewardsAddress,
