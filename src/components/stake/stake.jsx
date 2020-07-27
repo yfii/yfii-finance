@@ -603,7 +603,7 @@ class Stake extends Component {
             disabled={ loading }
             className={ classes.actionInput }
             id={ '' + asset.id + '_' + type }
-            value={ amount }
+            value={ amount || '' }
             error={ amountError }
             onChange={ this.onChange.bind(this, type === 'stake'?(asset ? asset.balance : 0):(asset ? asset.stakedBalance : 0)) }
             placeholder="0.00"
