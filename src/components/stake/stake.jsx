@@ -605,7 +605,7 @@ class Stake extends Component {
             id={ '' + asset.id + '_' + type }
             value={ amount || '' }
             error={ amountError }
-            onChange={ this.onChange.bind(this, type === 'stake'?(asset ? asset.balance : 0):(asset ? asset.stakedBalance : 0)) }
+            onChange={ this.onChange.bind(this, type === 'stake'?( asset && asset.balance ? (Math.floor(asset.balance*10000)/10000).toFixed(4) : '0.0000'):( asset && asset.stakedBalance ? (Math.floor(asset.stakedBalance*10000)/10000).toFixed(4) : '0.0000')) }
             placeholder="0.00"
             variant="outlined"
             InputProps={{
