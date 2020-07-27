@@ -1,7 +1,7 @@
 const config = {
   infuraProvider: 'https://mainnet.infura.io/v3/c842202b2840497b8d444f12bb7c488b',
 
-  yCurveFiRewardsAddress: '0xb81D3cB2708530ea990a287142b82D058725C092',
+  yCurveFiRewardsAddress: '0x22A92Ee6FF3a8C6f33536797dDe38DeBb0E0eD93',
   yCurveFiRewardsABI: [{
     "anonymous": false,
     "inputs": [{
@@ -731,7 +731,7 @@ const config = {
     "type": "function"
   }],
 
-  yfiAddress: '0xa1d0E215a23d7030842FC67cE582a6aFa3CCaB83',
+  yfiAddress: '0xf2d645D45F0A46CDfa080595Df1d6C9D733296c3',
   yfiABI: [{
     "inputs": [],
     "payable": false,
