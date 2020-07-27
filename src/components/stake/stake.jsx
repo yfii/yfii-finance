@@ -605,7 +605,7 @@ class Stake extends Component {
             id={ '' + asset.id + '_' + type }
             value={ amount }
             error={ amountError }
-            onChange={ this.onChange }
+            onChange={ this.onChange.bind(this, type === 'stake'?(asset ? asset.balance : 0):(asset ? asset.stakedBalance : 0)) }
             placeholder="0.00"
             variant="outlined"
             InputProps={{
@@ -634,9 +634,9 @@ class Stake extends Component {
     return <Snackbar type={ snackbarType } message={ snackbarMessage } open={true}/>
   };
 
-  onChange = (event) => {
+  onChange = (value, event) => {
     let val = []
-    val[event.target.id] = event.target.value
+    val[event.target.id] = value < event.target.value ? value : event.target.value
     this.setState(val)
   }
 
