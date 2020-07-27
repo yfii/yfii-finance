@@ -636,7 +636,7 @@ class Stake extends Component {
 
   onChange = (value, event) => {
     let val = []
-    val[event.target.id] = value > event.target.value ? event.target.value: value + ''
+    val[event.target.id] = value > parseFloat(event.target.value) ? event.target.value : (value + '')
     this.setState(val)
   }
 
