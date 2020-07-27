@@ -99,11 +99,11 @@ class Store {
       proposals: [
       ],
       claimableAsset: {
-        id: 'yfi',
+        id: 'YFII',
         name: 'yearn.finance',
         address: config.yfiAddress,
         abi: config.yfiABI,
-        symbol: 'YFI',
+        symbol: 'YFII',
         balance: 0,
         decimals: 18,
         rewardAddress: '0xfc1e690f61efd961294b3e1ce3313fbd8aa4f85d',
@@ -135,29 +135,29 @@ class Store {
             }
           ]
         },
-        // {
-        //   id: 'balancer',
-        //   name: 'Balancer Pool',
-        //   website: 'pools.balancer.exchange',
-        //   link: 'https://pools.balancer.exchange/#/pool/0x60626db611a9957C1ae4Ac5b7eDE69e24A3B76c5',
-        //   depositsEnabled: false,
-        //   tokens: [
-        //     {
-        //       id: 'bpt',
-        //       address: '0x60626db611a9957C1ae4Ac5b7eDE69e24A3B76c5',
-        //       symbol: 'BPT',
-        //       abi: config.erc20ABI,
-        //       decimals: 18,
-        //       rewardsAddress: config.balancerRewardsAddress,
-        //       rewardsABI: config.balancerRewardsABI,
-        //       rewardsSymbol: 'YFI',
-        //       decimals: 18,
-        //       balance: 0,
-        //       stakedBalance: 0,
-        //       rewardsAvailable: 0
-        //     }
-        //   ]
-        // },
+        {
+          id: 'balancer',
+          name: 'Balancer Pool',
+          website: 'pools.balancer.exchange',
+          link: 'https://pools.balancer.exchange/#/pool/0x16cAC1403377978644e78769Daa49d8f6B6CF565',
+          depositsEnabled: true,
+          tokens: [
+            {
+              id: 'bpt',
+              address: '0x16cAC1403377978644e78769Daa49d8f6B6CF565',
+              symbol: 'BPT',
+              abi: config.erc20ABI,
+              decimals: 18,
+              rewardsAddress: config.balancerRewardsAddress,
+              rewardsABI: config.balancerRewardsABI,
+              rewardsSymbol: 'YFII',
+              decimals: 18,
+              balance: 0,
+              stakedBalance: 0,
+              rewardsAvailable: 0
+            }
+          ]
+        },
         // {
         //   id: 'Governance',
         //   name: 'Governance',
@@ -173,7 +173,7 @@ class Store {
         //       decimals: 18,
         //       rewardsAddress: config.governanceAddress,
         //       rewardsABI: config.governanceABI,
-        //       rewardsSymbol: 'YFI',
+        //       rewardsSymbol: 'YFII',
         //       decimals: 18,
         //       balance: 0,
         //       stakedBalance: 0,
@@ -189,9 +189,9 @@ class Store {
         //   depositsEnabled: true,
         //   tokens: [
         //     {
-        //       id: 'yfi',
+        //       id: 'YFII',
         //       address: config.yfiAddress,
-        //       symbol: 'YFI',
+        //       symbol: 'YFII',
         //       abi: config.yfiABI,
         //       decimals: 18,
         //       rewardsAddress: config.feeRewardsAddress,

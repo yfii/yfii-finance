@@ -46,7 +46,8 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "buildAndDeploy": "react-scripts build && echo 'yfii.finance' >> ./build/CNAME && gh-pages -d build",
-    "deploy": "echo 'yfii.finance' >> ./build/CNAME && gh-pages -d build"
+    "deploy": "echo 'yfii.finance' >> ./build/CNAME && gh-pages -d build",
+    "kovanDeploy": "echo 'kovan.yfii.finance' >> ./build/CNAME && gh-pages -d build -r git@github.com:yfii/kovan.yfii.finance.git"
   },
   "eslintConfig": {
     "extends": "react-app"
