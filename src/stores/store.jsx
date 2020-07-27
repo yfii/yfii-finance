@@ -139,12 +139,12 @@ class Store {
           id: 'balancer',
           name: 'Balancer Pool',
           website: 'pools.balancer.exchange',
-          link: 'https://pools.balancer.exchange/#/pool/0xB7402204753DD10FBfc74cF4Ee6FCA05017B716D',
+          link: 'https://pools.balancer.exchange/#/pool/0x16cAC1403377978644e78769Daa49d8f6B6CF565',
           depositsEnabled: true,
           tokens: [
             {
               id: 'bpt',
-              address: '0xB7402204753DD10FBfc74cF4Ee6FCA05017B716D',
+              address: '0x16cAC1403377978644e78769Daa49d8f6B6CF565',
               symbol: 'BPT',
               abi: config.erc20ABI,
               decimals: 18,

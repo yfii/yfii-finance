@@ -366,7 +366,7 @@ const config = {
     "type": "function"
   }],
 
-  balancerRewardsAddress: '0xFd14a4B51dE7297eb970aCcB9CDf82B5bA49d92b',
+  balancerRewardsAddress: '0xAFfcD3D45cEF58B1DfA773463824c6F6bB0Dc13a',
   balancerRewardsABI: [{
     "anonymous": false,
     "inputs": [{
