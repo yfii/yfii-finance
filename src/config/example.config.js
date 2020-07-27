@@ -1,5 +1,5 @@
 const config = {
-  infuraProvider: 'https://mainnet.infura.io/v3/4bf032f2d38a4ed6bb975b80d6340847',
+  infuraProvider: 'https://mainnet.infura.io/v3/c842202b2840497b8d444f12bb7c488b',
 
   yCurveFiRewardsAddress: '0xb81D3cB2708530ea990a287142b82D058725C092',
   yCurveFiRewardsABI: [{
