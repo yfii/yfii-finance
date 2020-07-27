@@ -135,29 +135,29 @@ class Store {
             }
           ]
         },
-        // {
-        //   id: 'balancer',
-        //   name: 'Balancer Pool',
-        //   website: 'pools.balancer.exchange',
-        //   link: 'https://pools.balancer.exchange/#/pool/0x60626db611a9957C1ae4Ac5b7eDE69e24A3B76c5',
-        //   depositsEnabled: false,
-        //   tokens: [
-        //     {
-        //       id: 'bpt',
-        //       address: '0x60626db611a9957C1ae4Ac5b7eDE69e24A3B76c5',
-        //       symbol: 'BPT',
-        //       abi: config.erc20ABI,
-        //       decimals: 18,
-        //       rewardsAddress: config.balancerRewardsAddress,
-        //       rewardsABI: config.balancerRewardsABI,
-        //       rewardsSymbol: 'YFI',
-        //       decimals: 18,
-        //       balance: 0,
-        //       stakedBalance: 0,
-        //       rewardsAvailable: 0
-        //     }
-        //   ]
-        // },
+        {
+          id: 'balancer',
+          name: 'Balancer Pool',
+          website: 'pools.balancer.exchange',
+          link: 'https://pools.balancer.exchange/#/pool/0xB7402204753DD10FBfc74cF4Ee6FCA05017B716D',
+          depositsEnabled: true,
+          tokens: [
+            {
+              id: 'bpt',
+              address: '0xB7402204753DD10FBfc74cF4Ee6FCA05017B716D',
+              symbol: 'BPT',
+              abi: config.erc20ABI,
+              decimals: 18,
+              rewardsAddress: config.balancerRewardsAddress,
+              rewardsABI: config.balancerRewardsABI,
+              rewardsSymbol: 'YFI',
+              decimals: 18,
+              balance: 0,
+              stakedBalance: 0,
+              rewardsAvailable: 0
+            }
+          ]
+        },
         // {
         //   id: 'Governance',
         //   name: 'Governance',
