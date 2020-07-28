@@ -4,8 +4,9 @@ import { withStyles } from '@material-ui/core/styles';
 import {
   Typography,
   Button,
-  Card
+  Card,
 } from '@material-ui/core';
+import Link from '@material-ui/core/Link';
 import { withNamespaces } from 'react-i18next';
 
 import UnlockModal from '../unlock/unlockModal.jsx'
@@ -82,11 +83,14 @@ const styles = theme => ({
     fontWeight: '700',
     color: 'white',
   },
-  disaclaimer: {
+  title: {
     padding: '12px',
-    border: '1px solid rgb(174, 174, 174)',
+    textAlign: 'center'
+  },
+  subtitle: {
+    padding: '12px',
     borderRadius: '0.75rem',
-    marginBottom: '24px',
+    textAlign: 'center'
   },
   addressContainer: {
     display: 'flex',
@@ -134,7 +138,7 @@ const styles = theme => ({
     minHeight: '300px',
     minWidth: '200px',
   },
-  title: {
+  text: {
     width: '100%',
     color: colors.darkGray,
     minWidth: '100%',
@@ -171,9 +175,7 @@ class RewardPools extends Component {
       rewardPools: rewardPools,
       loading: !(account && rewardPools),
       account: account,
-      
     }
-
     dispatcher.dispatch({ type: GET_BALANCES, content: {} })
   }
 
@@ -196,6 +198,10 @@ class RewardPools extends Component {
     this.setState({ loading: false })
   }
 
+  closeAlert = () => {
+    this.setState({open: false})
+  }
+
   render() {
     const { classes, t } = this.props;
     const {
@@ -203,6 +209,7 @@ class RewardPools extends Component {
       account,
       loading,
       modalOpen,
+      open
     } = this.state
 
     var address = null;
@@ -212,7 +219,10 @@ class RewardPools extends Component {
 
     return (
       <div className={ classes.root }>
-        <Typography variant={'h5'} className={ classes.disaclaimer }>{t('RewardPools.Slogan')}</Typography>
+        <Typography variant="h2" className={ classes.title }>
+          <Link href="https://yfii.s3-ap-northeast-1.amazonaws.com/YFII_Innovative_DeFi_Yield_Farming_Token.pdf" target="_blank">{t('RewardPools.Title')}</Link>
+        </Typography>
+        {t('RewardPools.Subtitle') !== 'RewardPools.Subtitle' &&<Typography variant="h3" className={ classes.subtitle }><Link href="https://docs.qq.com/doc/DUnJVU0NXYUhPZVlC?pub=1&dver=2.1.0" target="_blank">{t('RewardPools.Subtitle')}</Link></Typography>}
         <div className={ classes.intro }>
           <Card className={ classes.addressContainer } onClick={this.overlayClicked}>
             <Typography variant={ 'h3'} className={ classes.walletTitle } noWrap>{t('RewardPools.Wallet')}</Typography>
@@ -221,7 +231,7 @@ class RewardPools extends Component {
           </Card>
         </div>
         <div className={ classes.rewardPools }>
-          <Typography variant={ 'h3'} className={ classes.title } noWrap>{t('RewardPools.WhichTokens')}</Typography>
+          <Typography variant={ 'h3'} className={ classes.text } noWrap>{t('RewardPools.WhichTokens')}</Typography>
           {
             this.renderRewards()
           }

@@ -71,15 +71,19 @@
   "Zap.IWillReceive": "将收到",
   "Zap.IHave": "已有",
   "Zap.SendAmount": "发送金额",
-  
-  "RewardPools.Slogan": "本项目处于测试阶段，请自行评估风险。",
+
+  "Slogan": "本项目处于测试阶段，请自行评估风险。",
+
+  "RewardPools.Title": "YFII-创新型去中心化defi矿池",
+  "RewardPools.Subtitle": "Pool2抵押方式与Balancer使用说明",
   "RewardPools.Wallet": "钱包",
   "RewardPools.WhichTokens": "您希望抵押哪种代币?",
   "RewardPools.Open": "打开",
   "RewardPools.SupportedTokens": "支持的代币",
   "RewardPools.NoSupportedTokens": "当前不支持的代币",
 
-  "Stake.Slogan": "本项目处于测试阶段，请自行评估风险。",
+  "Stake.Title": "YFII-创新型去中心化defi矿池",
+  "Stake.Subtitle": "Pool2抵押方式与Balancer使用说明",
   "Stake.Wallet": "钱包",
   "Stake.YourBalance": "您的余额",
   "Stake.CurrentlyStaked": "当前抵押",

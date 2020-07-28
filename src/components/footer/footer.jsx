@@ -7,6 +7,11 @@ import {
   MenuItem,
   FormControl
 } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
+import IconButton from '@material-ui/core/IconButton';
+import Collapse from '@material-ui/core/Collapse';
+import CloseIcon from '@material-ui/icons/Close';
+import Button from '@material-ui/core/Button';
 import {
   Link
 } from "react-router-dom";
@@ -18,6 +23,12 @@ import Store from "../../stores";
 const store = Store.store
 
 const styles = theme => ({
+  root: {
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(2),
+    },
+  },
   footer: {
     position: 'absolute',
     top: '0px',
@@ -67,15 +78,20 @@ class Footer extends Component {
     this.state = {
       languages: store.getStore('languages'),
       language: 'en',
+      open: true
     }
+  }
+
+  closeAlert = () => {
+    this.setState({open: false})
   }
 
   render() {
     const { classes, t, location } = this.props;
-    const {
-    } = this.state
+    const { open } = this.state
 
     return (
+      <>
       <div className={classes.footer}>
         <div className={classes.footerLinks}>
           <Link to={"/"} className={ classes.link }>
@@ -83,6 +99,23 @@ class Footer extends Component {
           </Link>
         </div>
       </div>
+      <div className={classes.root}><Collapse in={open}>
+        <Alert
+          variant="filled" severity="warning"
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={this.closeAlert}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+        >
+          {t('Slogan')}
+        </Alert>
+    </Collapse></div></>
     )
   }
 }

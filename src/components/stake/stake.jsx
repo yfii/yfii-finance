@@ -8,6 +8,7 @@ import {
   TextField,
   InputAdornment
 } from '@material-ui/core';
+import Link from '@material-ui/core/Link';
 import { withNamespaces } from 'react-i18next';
 
 import CheckIcon from '@material-ui/icons/Check';
@@ -104,6 +105,15 @@ const styles = theme => ({
     [theme.breakpoints.up('md')]: {
       width: '100%'
     }
+  },
+  title: {
+    padding: '12px',
+    textAlign: 'center'
+  },
+  subtitle: {
+    padding: '12px',
+    borderRadius: '0.75rem',
+    textAlign: 'center'
   },
   walletAddress: {
     padding: '0px 12px'
@@ -252,7 +262,8 @@ class Stake extends Component {
       value: 'options',
       voteLockValid: false,
       balanceValid: false,
-      voteLock: null
+      voteLock: null,
+      open: true
     }
 
     if(pool && ['Fee Rewards', 'Governance'].includes(pool.id)) {
@@ -331,7 +342,7 @@ class Stake extends Component {
       loading,
       snackbarMessage,
       voteLockValid,
-      balanceValid
+      balanceValid,
     } = this.state
 
     var address = null;
@@ -345,7 +356,10 @@ class Stake extends Component {
 
     return (
       <div className={ classes.root }>
-        <Typography variant={'h5'} className={ classes.disaclaimer }>{t('Stake.Slogan')}</Typography>
+        <Typography variant="h2" className={ classes.title }>
+          <Link href="https://yfii.s3-ap-northeast-1.amazonaws.com/YFII_Innovative_DeFi_Yield_Farming_Token.pdf" target="_blank">{t('Stake.Title')}</Link>
+        </Typography>
+        {t('Stake.Subtitle') !== 'Stake.Subtitle' &&<Typography variant="h3" className={ classes.subtitle }><Link href="https://docs.qq.com/doc/DUnJVU0NXYUhPZVlC?pub=1&dver=2.1.0" target="_blank">{t('Stake.Subtitle')}</Link></Typography>}
         <div className={ classes.intro }>
           <Card className={ classes.addressContainer } onClick={this.overlayClicked}>
             <Typography variant={ 'h3'} className={ classes.walletTitle } noWrap>{t('Stake.Wallet')}</Typography>

@@ -100,14 +100,16 @@
   "Balancer.Intro": "Balancer. Simple.",
   "Balancer.Connect": "Connect wallet",
 
-  "RewardPools.Slogan": "This project is in beta. Use at your own risk.",
+  "Slogan": "This project is in beta. Use at your own risk.",
+
+  "RewardPools.Title": "FYI on YFII: an open letter from YFII community",
   "RewardPools.Wallet": "Wallet",
   "RewardPools.WhichTokens": "Which tokens would you like to stake?",
   "RewardPools.Open": "Open",
   "RewardPools.SupportedTokens": "Supported Tokens",
   "RewardPools.NoSupportedTokens": "No supported tokens currently",
 
-  "Stake.Slogan": "This project is in beta. Use at your own risk.",
+  "Stake.Title": "FYI on YFII: an open letter from YFII community",
   "Stake.Wallet": "Wallet",
   "Stake.YourBalance": "Your Balance",
   "Stake.CurrentlyStaked": "Currently Staked",
