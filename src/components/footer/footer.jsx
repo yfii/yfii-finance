@@ -12,9 +12,10 @@ import IconButton from '@material-ui/core/IconButton';
 import Collapse from '@material-ui/core/Collapse';
 import CloseIcon from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
-import {
-  Link
-} from "react-router-dom";
+// import {
+//   Link
+// } from "react-router-dom";
+import Link from '@material-ui/core/Link';
 import { withNamespaces } from 'react-i18next';
 import i18n from '../../i18n';
 import { colors } from '../../theme'
@@ -24,14 +25,17 @@ const store = Store.store
 
 const styles = theme => ({
   root: {
+    // position: 'absolute',
+    // top: '0px',
+    width: '100%',
+  },
+  alert: {
     width: '100%',
     '& > * + *': {
       marginTop: theme.spacing(2),
     },
   },
   footer: {
-    position: 'absolute',
-    top: '0px',
     padding: '24px',
     display: 'flex',
     flexWrap: 'wrap',
@@ -51,10 +55,12 @@ const styles = theme => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
-    maxWidth: '420px'
   },
   footerText: {
-    cursor: 'pointer'
+    cursor: 'pointer',
+    '& > * + *': {
+      marginLeft: theme.spacing(2),
+    },
   },
   languageContainer: {
     paddingLeft: '12px',
@@ -69,13 +75,15 @@ const styles = theme => ({
   }
 });
 
-
 class Footer extends Component {
 
   constructor(props) {
     super()
 
+    const rewardPools = store.getStore('rewardPools')
+
     this.state = {
+      rewardPools: rewardPools,
       languages: store.getStore('languages'),
       language: 'en',
       open: true
@@ -86,36 +94,45 @@ class Footer extends Component {
     this.setState({open: false})
   }
 
+  renderRewards = () => {
+    const { rewardPools } = this.state
+
+    return rewardPools.map((rewardPool, index) => {
+      return this.renderRewardPool(rewardPool, index)
+    })
+  }
+
+  renderRewardPool = (rewardPool, index) => {
+
+    const { classes, t } = this.props
+    console.log(rewardPool)
+    return (
+      <Link href={rewardPool.YieldCalculatorLink} key={ rewardPool.id } target="_blank">{`Pool${index + 1}${t('Footer.YieldCalculator')}`}</Link>
+    )
+  }
+
   render() {
     const { classes, t, location } = this.props;
     const { open } = this.state
 
     return (
-      <>
-      <div className={classes.footer}>
-        <div className={classes.footerLinks}>
-          <Link to={"/"} className={ classes.link }>
-            <Typography className={ classes.footerText } variant={ 'h6'}>Home</Typography>
-          </Link>
+      <div className={classes.root}>
+        <div className={classes.alert}>
+          <Collapse in={open}>
+            <Alert variant="filled" severity="warning" action={<IconButton aria-label="close" color="inherit" size="small" onClick={this.closeAlert}><CloseIcon fontSize="inherit" /></IconButton>}>
+              {t('Footer.Slogan')}
+            </Alert>
+          </Collapse>
         </div>
-      </div>
-      <div className={classes.root}><Collapse in={open}>
-        <Alert
-          variant="filled" severity="warning"
-          action={
-            <IconButton
-              aria-label="close"
-              color="inherit"
-              size="small"
-              onClick={this.closeAlert}
-            >
-              <CloseIcon fontSize="inherit" />
-            </IconButton>
-          }
-        >
-          {t('Slogan')}
-        </Alert>
-    </Collapse></div></>
+        <div className={classes.footer}>
+          <div className={classes.footerLinks}>
+              <Typography className={ classes.footerText } variant='h6'>
+                <Link href="/">{t('Footer.Home')}</Link>
+                {this.renderRewards()}
+              </Typography>
+          </div>
+        </div>
+    </div>
     )
   }
 }

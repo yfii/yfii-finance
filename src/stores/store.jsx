@@ -117,6 +117,7 @@ class Store {
           name: 'yearn.finance',
           website: 'curve.fi/y',
           link: 'https://curve.fi/y',
+          YieldCalculatorLink: "https://yieldfarming.yfii.finance/yfii/ycrv/",   //收益率器地址
           depositsEnabled: true,
           tokens: [
             {
@@ -131,7 +132,7 @@ class Store {
               decimals: 18,
               balance: 0,
               stakedBalance: 0,
-              rewardsAvailable: 0
+              rewardsAvailable: 0,
             }
           ]
         },
@@ -140,6 +141,7 @@ class Store {
           name: 'Balancer Pool',
           website: 'pools.balancer.exchange',
           link: 'https://pools.balancer.exchange/#/pool/0x16cAC1403377978644e78769Daa49d8f6B6CF565',
+          YieldCalculatorLink: "https://yieldfarming.yfii.finance/yfii/yfii_dai/", //收益率器地址
           depositsEnabled: true,
           tokens: [
             {
@@ -154,7 +156,7 @@ class Store {
               decimals: 18,
               balance: 0,
               stakedBalance: 0,
-              rewardsAvailable: 0
+              rewardsAvailable: 0,
             }
           ]
         },

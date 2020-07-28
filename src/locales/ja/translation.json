@@ -31,7 +31,6 @@
   "IDai.Intro": "Simple iDAI to DAI.",
   "IDai.Swap": "Swap",
 
-  "Footer.Home": "home",
   "Footer.About": "about",
   "Footer.Docs": "docs",
   "Footer.Code": "code",
@@ -43,7 +42,6 @@
 
   "Insure.Intro": "Cover. Simple.",
   "Insure.Connect": "Connect wallet",
-  "Insure.Balance": "Current Balance",
   "Insure.Insured": "Insured Percent",
   "Insure.UninsuredYield": "Uninsured Yield",
   "Insure.InsuredYield": "Insured Yield",
@@ -51,7 +49,6 @@
   "Insure.Disabled": "Disabled",
   "Insure.ClaimInsurance": "Claim",
   "Insure.MintInsurance": "Mint Insurance",
-  "Insure.TotalCost": "Total Cost",
   "Insure.Expiration": "Expiration",
   "Insure.Premium": "Premium",
   "Insure.ExpectedReturns": "Expected Returns",
@@ -72,7 +69,9 @@
   "Zap.IHave": "I have",
   "Zap.SendAmount": "Send amount",
 
-  "Slogan": "This project is in beta. Use at your own risk.",
+  "Footer.Home": "Home",
+  "Footer.YieldCalculator": "Yield Calculator",
+  "Footer.Slogan": "This project is in beta. Use at your own risk.",
 
   "RewardPools.Title": "FYI on YFII: an open letter from YFII community",
   "RewardPools.Wallet": "Wallet",

@@ -31,7 +31,6 @@
   "IDai.Intro": "Simple iDAI to DAI.",
   "IDai.Swap": "Swap",
 
-  "Footer.Home": "home",
   "Footer.About": "about",
   "Footer.Docs": "docs",
   "Footer.Code": "code",
@@ -43,7 +42,6 @@
 
   "Insure.Intro": "Cover. Simple.",
   "Insure.Connect": "连接钱包",
-  "Insure.Balance": "当前余额",
   "Insure.Insured": "Insured Percent",
   "Insure.UninsuredYield": "Uninsured Yield",
   "Insure.InsuredYield": "Insured Yield",
@@ -51,7 +49,6 @@
   "Insure.Disabled": "禁用",
   "Insure.ClaimInsurance": "提取",
   "Insure.MintInsurance": "生成的保险",
-  "Insure.TotalCost": "总成本",
   "Insure.Expiration": "截止日期",
   "Insure.Premium": "高级",
   "Insure.ExpectedReturns": "期望收入",
@@ -72,7 +69,11 @@
   "Zap.IHave": "已有",
   "Zap.SendAmount": "发送金额",
 
-  "Slogan": "本项目处于测试阶段，请自行评估风险。",
+  "Home": "主页",
+
+  "Footer.Home": "主页",
+  "Footer.YieldCalculator": "收益率计算器",
+  "Footer.Slogan": "本项目处于测试阶段，请自行评估风险。",
 
   "RewardPools.Title": "YFII-创新型去中心化defi矿池",
   "RewardPools.Subtitle": "Pool2抵押方式与Balancer使用说明",
