@@ -357,9 +357,9 @@ class Stake extends Component {
     return (
       <div className={ classes.root }>
         <Typography variant="h2" className={ classes.title }>
-          <Link href={i18n.language === 'zh'? "https://docs.qq.com/doc/DUnVXcFh3a0JwdGdN?pub=1&dver=2.1.0":"https://yfii.s3-ap-northeast-1.amazonaws.com/YFII_Innovative_DeFi_Yield_Farming_Token.pdf"} target="_blank">{t('Stake.Title')}</Link>
+          <Link href={(i18n.language=== 'zh' || i18n.language === 'zh-CN')? "https://docs.qq.com/doc/DUnVXcFh3a0JwdGdN?pub=1&dver=2.1.0":"https://yfii.s3-ap-northeast-1.amazonaws.com/YFII_Innovative_DeFi_Yield_Farming_Token.pdf"} target="_blank">{t('Stake.Title')}</Link>
         </Typography>
-        {i18n.language === 'zh' &&<Typography variant="h3" className={ classes.subtitle }><Link href="https://docs.qq.com/doc/DUnJVU0NXYUhPZVlC?pub=1&dver=2.1.0" target="_blank">{t('Stake.Subtitle')}</Link></Typography>}
+        {(i18n.language=== 'zh' || i18n.language === 'zh-CN') &&<Typography variant="h3" className={ classes.subtitle }><Link href="https://docs.qq.com/doc/DUnJVU0NXYUhPZVlC?pub=1&dver=2.1.0" target="_blank">{t('Stake.Subtitle')}</Link></Typography>}
         <div className={ classes.intro }>
           <Card className={ classes.addressContainer } onClick={this.overlayClicked}>
             <Typography variant={ 'h3'} className={ classes.walletTitle } noWrap>{t('Stake.Wallet')}</Typography>
