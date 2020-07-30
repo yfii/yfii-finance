@@ -168,7 +168,7 @@ class Footer extends Component {
             <Link href="https://twitter.com/FinanceYfii" target="_blank">Twitter</Link>
             <Link href="https://t.me/yfiifinance" target="_blank">Telegram</Link>
             <Link href="https://discord.gg/XQ4wnmz" target="_blank">Discord</Link>
-            <Link color="inherit">wexhat:myGrassU</Link>
+            <Link color="inherit">wechat:myGrassU</Link>
           </div>
       </Toolbar>
       </AppBar>
