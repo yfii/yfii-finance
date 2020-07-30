@@ -41,6 +41,9 @@ const styles = theme => ({
   },
   title: {
     flexGrow: 1,
+    '& > * + *': {
+      marginTop: theme.spacing(2),
+    },
   },
   alert: {
     width: '100%',
@@ -134,35 +137,19 @@ class Footer extends Component {
     const { open } = this.state
 
     return (
-    //   <div className={classes.root}>
-    //     <div className={classes.alert}>
-    //       <Collapse in={open}>
-    //         <Alert variant="filled" severity="warning" action={<IconButton aria-label="close" color="inherit" size="small" onClick={this.closeAlert}><CloseIcon fontSize="inherit" /></IconButton>}>
-    //           {t('Footer.Slogan')}
-    //         </Alert>
-    //       </Collapse>
-    //     </div>
-    //     <div className={classes.footer}>
-    //       <div className={classes.footerLinks}>
-    //           <Typography className={ classes.footerText } variant='h6'>
-    //             <Link href="/">{t('Footer.Home')}</Link>
-    //             {this.renderRewards()}
-    //           </Typography>
-    //       </div>
-    //     </div>
-    // </div>
     <div className={classes.root}>
       <div className={classes.alert}>
-           <Collapse in={open}>
-             <Alert variant="filled" severity="warning" action={<IconButton aria-label="close" color="inherit" size="small" onClick={this.closeAlert}><CloseIcon fontSize="inherit" /></IconButton>}>
-               {t('Footer.Slogan')}
-             </Alert>
-           </Collapse>
-         </div>
+        <Collapse in={open}>
+          <Alert variant="filled" severity="warning" action={<IconButton aria-label="close" color="inherit" size="small" onClick={this.closeAlert}><CloseIcon fontSize="inherit" /></IconButton>}>
+            {t('Footer.Slogan')}
+          </Alert>
+        </Collapse>
+      </div>
       <AppBar position="static" color="transparent" className={classes.appbar}>
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             <Link href="/">{t('Footer.Home')}</Link>
+            {this.renderRewards()}
           </Typography>
           <div className={classes.buttons}>
             <Link href="https://twitter.com/FinanceYfii" target="_blank">Twitter</Link>
