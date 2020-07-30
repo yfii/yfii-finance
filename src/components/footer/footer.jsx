@@ -34,7 +34,7 @@ const styles = theme => ({
     width: '100%',
   },
   appbar: {
-    boxShadow: "none"
+    boxShadow: "none",
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -46,6 +46,11 @@ const styles = theme => ({
     width: '100%',
     '& > * + *': {
       marginTop: theme.spacing(2),
+    },
+  },
+  buttons: {
+    '& > * + *': {
+      marginLeft: theme.spacing(2),
     },
   },
   footer: {
@@ -159,10 +164,12 @@ class Footer extends Component {
           <Typography variant="h6" className={classes.title}>
             <Link href="/">{t('Footer.Home')}</Link>
           </Typography>
-            <Button href="https://twitter.com/FinanceYfii" color="primary">Twitter</Button>
-            <Button href="https://t.me/yfiifinance" color="primary">Telegram</Button>
-            <Button href="https://discord.gg/tpHWz4" color="primary">Discord</Button>
-            <Button disabled color="primary">wexhat:myGrassU</Button>
+          <div className={classes.buttons}>
+            <Link href="https://twitter.com/FinanceYfii" target="_blank">Twitter</Link>
+            <Link href="https://t.me/yfiifinance" target="_blank">Telegram</Link>
+            <Link href="https://discord.gg/XQ4wnmz" target="_blank">Discord</Link>
+            <Link color="inherit">wexhat:myGrassU</Link>
+          </div>
       </Toolbar>
       </AppBar>
     </div>
