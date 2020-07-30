@@ -7,6 +7,7 @@ import {
 } from '@material-ui/core';
 import { withNamespaces } from 'react-i18next';
 import { colors } from '../../theme'
+import Link from '@material-ui/core/Link';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import HowToVoteIcon from '@material-ui/icons/HowToVote';
 import WbIncandescentIcon from '@material-ui/icons/WbIncandescent';
@@ -198,6 +199,10 @@ class Home extends Component {
           <HowToVoteIcon className={ `${classes.icon} icon` } />
           <Typography variant={'h3'} className={ `${classes.title} title` }>Vote</Typography>
         </Card> */}
+        <Card className={ `${classes.card} ${classes.zap}`} onClick={()=>{window.location.href="https://gov.yfii.finance"}}>
+          <HowToVoteIcon className={ `${classes.icon} icon` } />
+          <Typography variant={'h3'} className={ `${classes.title} title` }>Vote</Typography>
+        </Card>
         {/*<Card className={ `${classes.card} ${classes.pool}` } onClick={ () => { this.nav(location.pathname+'claim') }}>
           <AttachMoneyIcon className={ `${classes.icon} icon` } />
           <Typography variant={'h3'} className={ `${classes.title} title` }>claim</Typography>
