@@ -113,7 +113,6 @@
   "Stake.YourBalance": "Your Balance",
   "Stake.CurrentlyStaked": "Currently Staked",
   "Stake.RewardsAvailable": "Rewards Available",
-  "Stake.HalfTime": "Half-Time",
   "Stake.yCRVRewardRequirements": "yCRV reward requirements",
   "Stake.YouMustHaveVoted": "You must have voted in a proposal recently",
   "Stake.YouMustHave": "You must have at least 1000 BPT staked in the Governance pool.",
