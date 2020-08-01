@@ -427,7 +427,7 @@ class Stake extends Component {
             className={ classes.actionButton }
             variant="outlined"
             color="primary"
-            disabled={ loading }
+            disabled={ loading || pool.id === 'Governance V2'}
             onClick={ () => { this.onClaim() } }
             >
             <Typography className={ classes.buttonText } variant={ 'h4'}>{t('Stake.ClaimRewards')}</Typography>
@@ -451,7 +451,7 @@ class Stake extends Component {
             className={ classes.actionButton }
             variant="outlined"
             color="primary"
-            disabled={ (pool.id === 'Governance' ? (loading || voteLockValid ) : loading  ) }
+            disabled={ (pool.id === 'Governance V2' || loading  ) }
             onClick={ () => { this.onExit() } }
             >
             <Typography className={ classes.buttonText } variant={ 'h4'}>{t('Stake.Exit')}</Typography>
