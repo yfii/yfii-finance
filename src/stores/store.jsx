@@ -261,29 +261,29 @@ class Store {
             }
           ]
         },
-        // {
-        //   id: 'Governance',
-        //   name: 'Governance',
-        //   website: 'pools.balancer.exchange',
-        //   link: 'https://pools.balancer.exchange/#/pool/0x95c4b6c7cff608c0ca048df8b81a484aa377172b',
-        //   depositsEnabled: true,
-        //   tokens: [
-        //     {
-        //       id: 'bpt',
-        //       address: '0x95c4b6c7cff608c0ca048df8b81a484aa377172b',
-        //       symbol: 'BPT',
-        //       abi: config.bpoolABI,
-        //       decimals: 18,
-        //       rewardsAddress: config.governanceAddress,
-        //       rewardsABI: config.governanceABI,
-        //       rewardsSymbol: 'YFII',
-        //       decimals: 18,
-        //       balance: 0,
-        //       stakedBalance: 0,
-        //       rewardsAvailable: 0
-        //     }
-        //   ]
-        // },
+        {
+          id: 'Governance V2',
+          name: 'Governance V2          ',
+          website: 'gov.yfii.finance',
+          link: 'https://gov.yfii.finance/',
+          depositsEnabled: true,
+          tokens: [
+            {
+              id: 'yfii',
+              address: '0xa1d0E215a23d7030842FC67cE582a6aFa3CCaB83',
+              symbol: 'YFII',
+              abi: config.yfiABI,
+              decimals: 18,
+              rewardsAddress: config.governanceV2Address,
+              rewardsABI: config.governanceV2ABI,
+              rewardsSymbol: 'yCrv',
+              decimals: 18,
+              balance: 0,
+              stakedBalance: 0,
+              rewardsAvailable: 0
+            }
+          ]
+        },
         // {
         //   id: 'Fee Rewards',
         //   name: 'Fee Rewards',
