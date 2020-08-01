@@ -89,6 +89,7 @@
   "Stake.YourBalance": "您的余额",
   "Stake.CurrentlyStaked": "当前抵押",
   "Stake.RewardsAvailable": "已获得奖励",
+  "Stake.HalfTime": "减半时间",
   "Stake.yCRVRewardRequirements": "yCRV 奖励要求",
   "Stake.YouMustHaveVoted": "You must have voted in a proposal recently",
   "Stake.YouMustHave": "您必须在治理池中抵押至少 1000 个 BPT。",

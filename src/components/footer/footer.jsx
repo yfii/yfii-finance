@@ -42,7 +42,7 @@ const styles = theme => ({
   title: {
     flexGrow: 1,
     '& > * + *': {
-      marginTop: theme.spacing(2),
+      marginLeft: theme.spacing(2),
     },
   },
   alert: {
@@ -126,7 +126,6 @@ class Footer extends Component {
   renderRewardPool = (rewardPool, index) => {
 
     const { classes, t } = this.props
-    console.log(rewardPool)
     return (
       <Link href={rewardPool.YieldCalculatorLink} key={ rewardPool.id } target="_blank">{`Pool${index + 1}${t('Footer.YieldCalculator')}`}</Link>
     )

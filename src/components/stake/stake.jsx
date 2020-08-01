@@ -376,6 +376,10 @@ class Stake extends Component {
             <Typography variant={ 'h2' } className={ classes.overviewValue }>{ pool.tokens[0].stakedBalance ? pool.tokens[0].stakedBalance.toFixed(2) : "0" }</Typography>
           </div>
           <div className={ classes.overviewField }>
+            <Typography variant={ 'h3' } className={ classes.overviewTitle }>{t('Stake.HalfTime')}</Typography>
+            <Typography variant={ 'h2' } className={ classes.overviewValue }>{ pool.tokens[0].halfTime }</Typography>
+          </div>
+          <div className={ classes.overviewField }>
             <Typography variant={ 'h3' } className={ classes.overviewTitle }>{t('Stake.RewardsAvailable')}</Typography>
             <Typography variant={ 'h2' } className={ classes.overviewValue }>{ pool.tokens[0].rewardsSymbol == '$' ? pool.tokens[0].rewardsSymbol : '' } { pool.tokens[0].rewardsAvailable ? pool.tokens[0].rewardsAvailable.toFixed(2) : "0" } { pool.tokens[0].rewardsSymbol != '$' ? pool.tokens[0].rewardsSymbol : '' }</Typography>
           </div>
