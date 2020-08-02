@@ -124,9 +124,8 @@ class Footer extends Component {
   }
 
   renderRewardPool = (rewardPool, index) => {
-
     const { classes, t } = this.props
-    console.log(rewardPool)
+
     return (
       <Link href={rewardPool.YieldCalculatorLink} key={ rewardPool.id } target="_blank">{`Pool${index + 1}${t('Footer.YieldCalculator')}`}</Link>
     )

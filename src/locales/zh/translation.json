@@ -88,6 +88,7 @@
   "Stake.Wallet": "钱包",
   "Stake.YourBalance": "您的余额",
   "Stake.CurrentlyStaked": "当前抵押",
+  "Stake.HalfTime": "减半时间",
   "Stake.RewardsAvailable": "已获得奖励",
   "Stake.yCRVRewardRequirements": "yCRV 奖励要求",
   "Stake.YouMustHaveVoted": "You must have voted in a proposal recently",

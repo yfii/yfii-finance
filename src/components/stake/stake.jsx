@@ -273,6 +273,10 @@ class Stake extends Component {
     }
   }
 
+  componentDidMount() {
+    this._countDown();
+  }
+
   componentWillMount() {
     emitter.on(ERROR, this.errorReturned);
     emitter.on(STAKE_RETURNED, this.showHash);
@@ -284,6 +288,7 @@ class Stake extends Component {
   }
 
   componentWillUnmount() {
+    clearTimeout(this.time);
     emitter.removeListener(ERROR, this.errorReturned);
     emitter.removeListener(STAKE_RETURNED, this.showHash);
     emitter.removeListener(WITHDRAW_RETURNED, this.showHash);
@@ -292,6 +297,36 @@ class Stake extends Component {
     emitter.removeListener(GET_YCRV_REQUIREMENTS_RETURNED, this.yCrvRequirementsReturned);
     emitter.removeListener(GET_BALANCES_RETURNED, this.balancesReturned);
   };
+
+  _countDown = () => {
+    const currTime = new Date().getTime();
+    const deadline = this.state.pool.tokens ? this.state.pool.tokens[0].halfTime : 0 ;
+    const dTime = deadline - currTime;
+    if (dTime <= 0) {
+        // 这样做更精确
+        clearTimeout(this.time);
+        this.setState({
+          day: '00',
+          hours: '00',
+          minutes: '00',
+          seconds: '00'
+        });
+        return;
+    }
+    this.time = setTimeout(() => {
+        this.setState(this._formatTime(dTime));
+        this._countDown();
+    }, 1000);
+}
+
+  _formatTime = time => {
+    const day = Math.floor(time / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+    const hours = Math.floor(( time / (1000 * 60 * 60)) % 24).toString().padStart(2, '0');
+    const minutes = Math.floor(( time / (1000 * 60)) % 60).toString().padStart(2, '0');
+    const seconds = Math.floor(( time / 1000) % 60).toString().padStart(2, '0');
+    // const milliseconds = Math.floor(time % 1000);
+    return ({day, hours, minutes, seconds });
+  }
 
   balancesReturned = () => {
     const currentPool = store.getStore('currentPool')
@@ -345,6 +380,7 @@ class Stake extends Component {
       snackbarMessage,
       voteLockValid,
       balanceValid,
+      day, hours,  minutes,  seconds
     } = this.state
 
     var address = null;
@@ -377,6 +413,10 @@ class Stake extends Component {
           <div className={ classes.overviewField }>
             <Typography variant={ 'h3' } className={ classes.overviewTitle }>{t('Stake.CurrentlyStaked')}</Typography>
             <Typography variant={ 'h2' } className={ classes.overviewValue }>{ pool.tokens[0].stakedBalance ? pool.tokens[0].stakedBalance.toFixed(2) : "0" }</Typography>
+          </div>
+          <div className={ classes.overviewField }>
+            <Typography variant={ 'h3' } className={ classes.overviewTitle }>{t('Stake.HalfTime')}</Typography>
+            <Typography variant={ 'h2' } className={ classes.overviewValue }>{day}:{hours}:{minutes}:{seconds}</Typography>
           </div>
           <div className={ classes.overviewField }>
             <Typography variant={ 'h3' } className={ classes.overviewTitle }>{t('Stake.RewardsAvailable')}</Typography>
