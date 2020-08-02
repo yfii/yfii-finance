@@ -1136,7 +1136,7 @@ const config = {
     "type": "function"
   }],
 
-  governanceAddress: '0x3A22dF48d84957F907e67F4313E3D43179040d6E',
+  governanceAddress: '0xf1750B770485A5d0589A6ba1270D9FC354884D45',
   governanceABI: [{
     "anonymous": false,
     "inputs": [{
