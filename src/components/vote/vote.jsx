@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import { withStyles } from '@material-ui/core/styles';
 import {
   Typography,
+  Box,
   Button,
   Card,
   TextField,
@@ -18,6 +19,7 @@ import Loader from '../loader'
 import Snackbar from '../snackbar'
 import UnlockModal from '../unlock/unlockModal.jsx'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import CopyIcon from '@material-ui/icons/FileCopy';
 import Proposal from './proposal'
 
 import Store from "../../stores";
@@ -32,6 +34,11 @@ import {
   GET_PROPOSALS_RETURNED,
   VOTE_FOR_RETURNED,
   VOTE_AGAINST_RETURNED,
+  GOVERNANCE_CONTRACT_CHANGED,
+  GET_VOTE_STATUS,
+  GET_VOTE_STATUS_RETURNED,
+  REGISTER_VOTE_RETURNED,
+  REGISTER_VOTE
 } from '../../constants'
 
 const styles = theme => ({
@@ -215,6 +222,17 @@ const styles = theme => ({
   },
   stakeButton: {
     minWidth: '300px'
+  },
+  proposerAddressContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    '& > svg': {
+      visibility: 'hidden',
+    },
+    '&:hover > svg': {
+      visibility: 'visible'
+    }
   }
 })
 
@@ -229,15 +247,18 @@ class Vote extends Component {
 
     const account = store.getStore('account')
     const proposals = store.getStore('proposals')
+    const votingStatus = store.getStore('votingStatus')
 
     this.state = {
       loading: false,
       account: account,
       proposals: proposals,
-      value: 1
+      value: 1,
+      votingStatus: votingStatus,
     }
 
     dispatcher.dispatch({ type: GET_PROPOSALS, content: {} })
+    dispatcher.dispatch({ type: GET_VOTE_STATUS, content: {} })
   }
 
   componentWillMount() {
@@ -247,6 +268,8 @@ class Vote extends Component {
     emitter.on(GET_PROPOSALS_RETURNED, this.proposalsReturned)
     emitter.on(VOTE_FOR_RETURNED, this.showHash);
     emitter.on(VOTE_AGAINST_RETURNED, this.showHash);
+    emitter.on(GET_VOTE_STATUS_RETURNED, this.voteStatusReturned);
+    emitter.on(REGISTER_VOTE_RETURNED, this.registerVoteReturned);
   }
 
   componentWillUnmount() {
@@ -256,25 +279,50 @@ class Vote extends Component {
     emitter.removeListener(GET_PROPOSALS_RETURNED, this.proposalsReturned)
     emitter.removeListener(VOTE_FOR_RETURNED, this.showHash);
     emitter.removeListener(VOTE_AGAINST_RETURNED, this.showHash);
+    emitter.removeListener(GET_VOTE_STATUS_RETURNED, this.voteStatusReturned);
+    emitter.removeListener(REGISTER_VOTE_RETURNED, this.registerVoteReturned);
   };
 
   errorReturned = (error) => {
     this.setState({ loading: false })
   };
 
+  registerVoteReturned = (txHash) => {
+    this.setState({
+      votingStatus: store.getStore('votingStatus'),
+      loading: false
+    })
+    this.showSnackbar(txHash, 'Hash')
+  };
+
+  voteStatusReturned = () => {
+    this.setState({
+      votingStatus: store.getStore('votingStatus'),
+      loading: false
+    })
+  }
+
   proposalsReturned = () => {
     const proposals = store.getStore('proposals')
-    this.setState({ proposals: proposals })
+    this.setState({ proposals: proposals, loading: false })
   }
 
   showHash = (txHash) => {
+    this.showSnackbar(txHash, 'Hash')
+  };
+
+  showAddressCopiedSnack = () => {
+    this.showSnackbar("Address Copied to Clipboard", 'Success')
+  }
+
+  showSnackbar = (message, type) => {
     this.setState({ snackbarMessage: null, snackbarType: null, loading: false })
     const that = this
     setTimeout(() => {
-      const snackbarObj = { snackbarMessage: txHash, snackbarType: 'Hash' }
+      const snackbarObj = { snackbarMessage: message, snackbarType: type }
       that.setState(snackbarObj)
     })
-  };
+  }
 
   configureReturned = () => {
     this.setState({ loading: false })
@@ -291,7 +339,8 @@ class Vote extends Component {
       title,
       titleError,
       description,
-      descriptionError
+      descriptionError,
+      votingStatus,
     } = this.state
 
     var address = null;
@@ -334,15 +383,17 @@ class Vote extends Component {
           <div className={ classes.between }>
           </div>
           <div className={ classes.proposalContainer }>
-            <Button
-              className={ classes.stakeButton }
-              variant="outlined"
-              color="secondary"
-              disabled={ loading }
-              onClick={ () => { this.onPropose() } }
-            >
-              <Typography variant={ 'h4'}>Generate a new proposal</Typography>
-            </Button>
+            { votingStatus !== true &&
+              <Button
+                className={ classes.stakeButton }
+                variant="outlined"
+                color="secondary"
+                disabled={ loading }
+                onClick={ () => { this.onRegister() } }
+              >
+                <Typography variant={ 'h4'}>Register to vote</Typography>
+              </Button>
+            }
           </div>
         </div>
         { this.renderProposals() }
@@ -357,8 +408,15 @@ class Vote extends Component {
     const { proposals, expanded, value } = this.state
     const { classes, t } = this.props
     const width = window.innerWidth
+    const now = store.getStore('currentBlock')
 
-    if(proposals.length === 0) {
+    const filteredProposals = proposals.filter((proposal) => {
+      return proposal.proposer != '0x0000000000000000000000000000000000000000'
+    }).filter((proposal) => {
+      return (value === 0 ? proposal.end < now : proposal.end > now)
+    })
+
+    if(filteredProposals.length === 0) {
       return (
         <div className={ classes.claimContainer }>
           <Typography className={ classes.stakeTitle } variant={ 'h3'}>No proposals</Typography>
@@ -366,11 +424,7 @@ class Vote extends Component {
       )
     }
 
-    let now = store.getStore('currentBlock')
-
-    return proposals.filter((proposal) => {
-      return (value === 0 ? proposal.end < now : proposal.end > now)
-    }).map((proposal) => {
+    return filteredProposals.map((proposal) => {
       var address = null;
       if (proposal.proposer) {
         address = proposal.proposer.substring(0,8)+'...'+proposal.proposer.substring(proposal.proposer.length-6,proposal.proposer.length)
@@ -389,30 +443,26 @@ class Vote extends Component {
                   <Typography variant={ 'h3' }>{ proposal.id }</Typography>
                 </div>
                 <div>
-                  <Typography variant={ 'h3' }>{ address }</Typography>
+                  <div className={ classes.proposerAddressContainer }>
+                    <Typography variant={'h3'}>{address}</Typography>
+                    <Box ml={1} />
+                    <CopyIcon onClick={(e) => { this.copyAddressToClipboard(e, proposal.proposer) } } fontSize="small" />
+                  </div>
                   <Typography variant={ 'h5' } className={ classes.grey }>Proposer</Typography>
                 </div>
               </div>
               <div className={classes.heading}>
                 <Typography variant={ 'h3' }>{ proposal.totalForVotes ? (parseFloat(proposal.totalForVotes)/10**18).toLocaleString(undefined, { maximumFractionDigits: 4, minimumFractionDigits: 4 }) : 0 }</Typography>
-                <Typography variant={ 'h5' } className={ classes.grey }>Votes For { ((parseFloat(proposal.totalForVotes)/10**18) / ((parseFloat(proposal.totalForVotes)/10**18) + (parseFloat(proposal.totalAgainstVotes)/10**18)) * 100).toFixed(2) }%</Typography>
+                <Typography variant={ 'h5' } className={ classes.grey }>Votes For { proposal.totalForVotes !== "0" ? ((parseFloat(proposal.totalForVotes)/10**18) / ((parseFloat(proposal.totalForVotes)/10**18) + (parseFloat(proposal.totalAgainstVotes)/10**18)) * 100).toFixed(2) : 0 }%</Typography>
               </div>
               <div className={classes.heading}>
                 <Typography variant={ 'h3' }>{ proposal.totalAgainstVotes ? (parseFloat(proposal.totalAgainstVotes)/10**18).toLocaleString(undefined, { maximumFractionDigits: 4, minimumFractionDigits: 4 }) : 0 }</Typography>
-                <Typography variant={ 'h5' } className={ classes.grey }>Votes Against { ((parseFloat(proposal.totalAgainstVotes)/10**18) / ((parseFloat(proposal.totalForVotes)/10**18) + (parseFloat(proposal.totalAgainstVotes)/10**18)) * 100).toFixed(2) }%</Typography>
+                <Typography variant={ 'h5' } className={ classes.grey }>Votes Against { proposal.totalAgainstVotes !== "0" ? ((parseFloat(proposal.totalAgainstVotes)/10**18) / ((parseFloat(proposal.totalForVotes)/10**18) + (parseFloat(proposal.totalAgainstVotes)/10**18)) * 100).toFixed(2) : 0 }%</Typography>
               </div>
-              {/*<div className={classes.heading}>
-                <Typography variant={ 'h3' }>{ proposal.start }</Typography>
-                <Typography variant={ 'h5' } className={ classes.grey }>Vote Starts</Typography>
-              </div>
-              <div className={classes.heading}>
-                <Typography variant={ 'h3' }>{ proposal.end }</Typography>
-                <Typography variant={ 'h5' } className={ classes.grey }>Vote Ends</Typography>
-              </div>*/}
             </div>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
-            <Proposal proposal={ proposal } startLoading={ this.startLoading } />
+            <Proposal proposal={ proposal } startLoading={ this.startLoading } showSnackbar={ this.showSnackbar } />
           </ExpansionPanelDetails>
         </ExpansionPanel>
       )
@@ -420,7 +470,7 @@ class Vote extends Component {
   }
 
   goToDashboard = () => {
-    window.open('https://gov.yearn.finance/', "_blank")
+    window.open('https://gov.yfii.finance/', "_blank")
   }
 
   handleTabChange = (event, newValue) => {
@@ -435,6 +485,13 @@ class Vote extends Component {
     this.setState({ expanded: this.state.expanded === id ? null : id })
   }
 
+  copyAddressToClipboard = (event, address) => {
+    event.stopPropagation();
+    navigator.clipboard.writeText(address).then(() => {
+      this.showAddressCopiedSnack();
+    });
+  }
+
   onChange = (event) => {
     let val = []
     val[event.target.id] = event.target.value
@@ -442,8 +499,12 @@ class Vote extends Component {
   }
 
   onPropose = () => {
+    this.props.history.push('propose')
+  }
+
+  onRegister = () => {
     this.setState({ loading: true })
-    dispatcher.dispatch({ type: PROPOSE, content: {  } })
+    dispatcher.dispatch({ type: REGISTER_VOTE, content: {  } })
   }
 
   renderModal = () => {
@@ -470,4 +531,4 @@ class Vote extends Component {
 
 }
 
-export default withRouter(withStyles(styles)(Vote));
+export default withNamespaces()(withRouter(withStyles(styles)(Vote)));
