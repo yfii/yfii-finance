@@ -127,5 +127,15 @@
   "Stake.UnstakeYourTokens": "Unstake your tokens",
   "Stake.Back": "Back",
   "Stake.Unstake": "Unstake",
-  "Stake.ComeSoon": "Please vote before claim rewards. The voting function will be released soon."
+  "Stake.ComeSoon": "Please vote before claim rewards. The voting function will be released soon.",
+
+  "Vote.Wallet": "Wallet",
+  "Vote.GoToVotingDashboard": "Go to Voting Dashboard",
+  "Vote.Done": "Done",
+  "Vote.Open": "Open",
+  "Vote.RegisterToVote": "Register to vote",
+  "Vote.NoProposals": "No proposals",
+  "Vote.Proposer": "Proposer",
+  "Vote.VotesFor": "Votes For",
+  "Vote.VotesAgainst": "Votes Against"
 }

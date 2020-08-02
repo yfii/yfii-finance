@@ -244,6 +244,12 @@ class Store {
           case GET_PROPOSALS:
             this.getProposals(payload)
             break;
+          case REGISTER_VOTE:
+            this.registerVote(payload)
+            break;
+          case GET_VOTE_STATUS:
+            this.getVoteStatus(payload)
+            break;
           case VOTE_FOR:
             this.voteFor(payload)
             break;

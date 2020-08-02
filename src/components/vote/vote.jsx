@@ -50,7 +50,6 @@ const styles = theme => ({
     width: '100%',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    marginTop: '40px'
   },
   between: {
     width: '40px'
@@ -329,7 +328,7 @@ class Vote extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, t } = this.props;
     const {
       value,
       account,
@@ -350,10 +349,9 @@ class Vote extends Component {
 
     return (
       <div className={ classes.root }>
-        <Typography variant={'h5'} className={ classes.disaclaimer }>This project is in beta. Use at your own risk.</Typography>
         <div className={ classes.intro }>
           <Card className={ classes.addressContainer } onClick={this.overlayClicked}>
-            <Typography variant={ 'h3'} className={ classes.walletTitle } noWrap>Wallet</Typography>
+            <Typography variant={ 'h3'} className={ classes.walletTitle } noWrap>{t('Wallet')}</Typography>
             <Typography variant={ 'h4'} className={ classes.walletAddress } noWrap>{ address }</Typography>
             <div style={{ background: '#DC6BE5', opacity: '1', borderRadius: '10px', width: '10px', height: '10px', marginRight: '3px', marginTop:'3px', marginLeft:'6px' }}></div>
           </Card>
@@ -367,17 +365,17 @@ class Vote extends Component {
               disabled={ loading }
               onClick={ () => { this.goToDashboard() } }
             >
-              <Typography variant={ 'h4'}>Go to Voting Dashboard</Typography>
+              <Typography variant={ 'h4'}>{t('Vote.GoToVotingDashboard')}</Typography>
             </Button>
           </div>
         </div>
         <div className={ classes.intro }>
           <ToggleButtonGroup value={value} onChange={this.handleTabChange} aria-label="version" exclusive size={ 'small' }>
             <ToggleButton value={0} aria-label="v1">
-              <Typography variant={ 'h4' }>Done</Typography>
+              <Typography variant={ 'h4' }>{t('Vote.Done')}</Typography>
             </ToggleButton>
             <ToggleButton value={1} aria-label="v2">
-              <Typography variant={ 'h4' }>Open</Typography>
+              <Typography variant={ 'h4' }>{t('Vote.Open')}</Typography>
             </ToggleButton>
           </ToggleButtonGroup>
           <div className={ classes.between }>
@@ -391,7 +389,7 @@ class Vote extends Component {
                 disabled={ loading }
                 onClick={ () => { this.onRegister() } }
               >
-                <Typography variant={ 'h4'}>Register to vote</Typography>
+                <Typography variant={ 'h4'}>{t('Vote.RegisterToVote')}</Typography>
               </Button>
             }
           </div>
@@ -419,7 +417,7 @@ class Vote extends Component {
     if(filteredProposals.length === 0) {
       return (
         <div className={ classes.claimContainer }>
-          <Typography className={ classes.stakeTitle } variant={ 'h3'}>No proposals</Typography>
+          <Typography className={ classes.stakeTitle } variant={ 'h3'}>{t('Vote.NoProposals')}</Typography>
         </div>
       )
     }
@@ -448,16 +446,16 @@ class Vote extends Component {
                     <Box ml={1} />
                     <CopyIcon onClick={(e) => { this.copyAddressToClipboard(e, proposal.proposer) } } fontSize="small" />
                   </div>
-                  <Typography variant={ 'h5' } className={ classes.grey }>Proposer</Typography>
+                  <Typography variant={ 'h5' } className={ classes.grey }>{t('Vote.Proposer')}</Typography>
                 </div>
               </div>
               <div className={classes.heading}>
                 <Typography variant={ 'h3' }>{ proposal.totalForVotes ? (parseFloat(proposal.totalForVotes)/10**18).toLocaleString(undefined, { maximumFractionDigits: 4, minimumFractionDigits: 4 }) : 0 }</Typography>
-                <Typography variant={ 'h5' } className={ classes.grey }>Votes For { proposal.totalForVotes !== "0" ? ((parseFloat(proposal.totalForVotes)/10**18) / ((parseFloat(proposal.totalForVotes)/10**18) + (parseFloat(proposal.totalAgainstVotes)/10**18)) * 100).toFixed(2) : 0 }%</Typography>
+                <Typography variant={ 'h5' } className={ classes.grey }>{t('Vote.VotesFor')} { proposal.totalForVotes !== "0" ? ((parseFloat(proposal.totalForVotes)/10**18) / ((parseFloat(proposal.totalForVotes)/10**18) + (parseFloat(proposal.totalAgainstVotes)/10**18)) * 100).toFixed(2) : 0 }%</Typography>
               </div>
               <div className={classes.heading}>
                 <Typography variant={ 'h3' }>{ proposal.totalAgainstVotes ? (parseFloat(proposal.totalAgainstVotes)/10**18).toLocaleString(undefined, { maximumFractionDigits: 4, minimumFractionDigits: 4 }) : 0 }</Typography>
-                <Typography variant={ 'h5' } className={ classes.grey }>Votes Against { proposal.totalAgainstVotes !== "0" ? ((parseFloat(proposal.totalAgainstVotes)/10**18) / ((parseFloat(proposal.totalForVotes)/10**18) + (parseFloat(proposal.totalAgainstVotes)/10**18)) * 100).toFixed(2) : 0 }%</Typography>
+                <Typography variant={ 'h5' } className={ classes.grey }>{t('Vote.VotesAgainst')} { proposal.totalAgainstVotes !== "0" ? ((parseFloat(proposal.totalAgainstVotes)/10**18) / ((parseFloat(proposal.totalForVotes)/10**18) + (parseFloat(proposal.totalAgainstVotes)/10**18)) * 100).toFixed(2) : 0 }%</Typography>
               </div>
             </div>
           </ExpansionPanelSummary>
