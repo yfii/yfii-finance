@@ -142,7 +142,10 @@ const styles = theme => ({
     color: colors.darkGray
   },
   overviewValue: {
-
+    
+  },
+  halfTime: {
+    color: colors.red
   },
   actions: {
     width: '100%',
@@ -300,7 +303,7 @@ class Stake extends Component {
 
   _countDown = () => {
     const currTime = new Date().getTime();
-    const deadline = this.state.pool.tokens ? this.state.pool.tokens[0].halfTime : 0 ;
+    const deadline = this.state.pool ? this.state.pool.tokens[0].halfTime : 0 ;
     const dTime = deadline - currTime;
     if (dTime <= 0) {
         // 这样做更精确
@@ -416,7 +419,7 @@ class Stake extends Component {
           </div>
           <div className={ classes.overviewField }>
             <Typography variant={ 'h3' } className={ classes.overviewTitle }>{t('Stake.HalfTime')}</Typography>
-            <Typography variant={ 'h2' } className={ classes.overviewValue }>{day}:{hours}:{minutes}:{seconds}</Typography>
+            <Typography variant={ 'h2' } className={ classes.overviewValue }>{day}day {hours}:{minutes}:{seconds}</Typography>
           </div>
           <div className={ classes.overviewField }>
             <Typography variant={ 'h3' } className={ classes.overviewTitle }>{t('Stake.RewardsAvailable')}</Typography>
