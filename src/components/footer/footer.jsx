@@ -42,7 +42,7 @@ const styles = theme => ({
   title: {
     flexGrow: 1,
     '& > * + *': {
-      marginTop: theme.spacing(2),
+      marginLeft: theme.spacing(2),
     },
   },
   alert: {

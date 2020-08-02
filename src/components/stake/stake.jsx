@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { withRouter } from "react-router-dom";
 import { withStyles } from '@material-ui/core/styles';
 import {
@@ -9,6 +9,8 @@ import {
   InputAdornment
 } from '@material-ui/core';
 import Link from '@material-ui/core/Link';
+import Popover from '@material-ui/core/Popover';
+
 import { withNamespaces } from 'react-i18next';
 
 import CheckIcon from '@material-ui/icons/Check';
@@ -262,7 +264,8 @@ class Stake extends Component {
       voteLockValid: false,
       balanceValid: false,
       voteLock: null,
-      open: true
+      open: true,
+      anchorEl: null
     }
 
     if(pool && ['Fee Rewards', 'Governance'].includes(pool.id)) {
@@ -403,9 +406,25 @@ class Stake extends Component {
     )
   }
 
+  setAnchorEl = anchorEl => {
+    this.setState({ anchorEl: anchorEl })
+  }
+
+  handleClick = (event) => {
+    this.setAnchorEl(this.state.anchorEl ? null : event.currentTarget);
+  };
+
+  handleClose = () => {
+    this.setAnchorEl(null);
+  };
+
+
   renderOptions = () => {
     const { classes, t } = this.props;
-    const { loading, pool, voteLockValid, balanceValid, voteLock } = this.state
+    const { loading, pool, voteLockValid, balanceValid, voteLock, anchorEl } = this.state
+
+    const open = Boolean(anchorEl);
+    const id = open ? 'simple-popover' : undefined;
 
     return (
       <div className={ classes.actions }>
@@ -427,9 +446,10 @@ class Stake extends Component {
             className={ classes.actionButton }
             variant="outlined"
             color="primary"
-            disabled={ loading || pool.id === 'Governance V2'}
-            onClick={ () => { this.onClaim() } }
-            >
+            disabled={ loading }
+            aria-describedby={id}
+            onClick={ pool.id === 'Governance V2' ? this.handleClick : this.onClaim }
+          >
             <Typography className={ classes.buttonText } variant={ 'h4'}>{t('Stake.ClaimRewards')}</Typography>
           </Button>
         </div>
@@ -451,11 +471,28 @@ class Stake extends Component {
             className={ classes.actionButton }
             variant="outlined"
             color="primary"
-            disabled={ (pool.id === 'Governance V2' || loading  ) }
-            onClick={ () => { this.onExit() } }
+            aria-describedby={id}
+            disabled={ loading }
+            onClick={ pool.id === 'Governance V2' ? this.handleClick : this.onExit }
             >
             <Typography className={ classes.buttonText } variant={ 'h4'}>{t('Stake.Exit')}</Typography>
           </Button>
+          <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={this.handleClose}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'left',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'left',
+            }}
+          >
+            <Typography className={ classes.buttonText }  variant={ 'h4'}>{t('Stake.ComeSoon')}</Typography>
+          </Popover>
         </div>
         { (pool.id === 'Governance' && voteLockValid) && <Typography variant={'h4'} className={ classes.voteLockMessage }>{t('Stake.UnstakingTokens')}{voteLock}</Typography>}
       </div>
