@@ -464,7 +464,7 @@ class Stake extends Component {
 
   renderOptions = () => {
     const { classes, t } = this.props;
-    const { loading, pool, voteLockValid, balanceValid, voteLock, anchorEl } = this.state
+    const { loading, pool, voteLockValid, balanceValid, anchorEl } = this.state
 
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
@@ -491,7 +491,7 @@ class Stake extends Component {
             color="primary"
             disabled={ loading }
             aria-describedby={id}
-            onClick={ pool.id === 'Governance V2' ? this.handleClick : this.onClaim }
+            onClick={ pool.id === 'Governance V2' && !pool.tokens[0].voteLock ?  this.handleClick : this.onClaim } // 只有当投票页面voteLock等于0，弹框提示
           >
             <Typography className={ classes.buttonText } variant={ 'h4'}>{t('Stake.ClaimRewards')}</Typography>
           </Button>
@@ -516,7 +516,7 @@ class Stake extends Component {
             color="primary"
             aria-describedby={id}
             disabled={ loading }
-            onClick={ pool.id === 'Governance V2' ? this.handleClick : this.onExit }
+            onClick={ pool.id === 'Governance V2' && !pool.tokens[0].voteLock ? this.handleClick: this.onExit} // 只有当投票页面voteLock等于0，弹框提示
             >
             <Typography className={ classes.buttonText } variant={ 'h4'}>{t('Stake.Exit')}</Typography>
           </Button>
@@ -537,7 +537,6 @@ class Stake extends Component {
             <Typography className={ classes.buttonText }  variant={ 'h4'}>{t('Stake.ComeSoon')}</Typography>
           </Popover>
         </div>
-        { (pool.id === 'Governance' && voteLockValid) && <Typography variant={'h4'} className={ classes.voteLockMessage }>{t('Stake.UnstakingTokens')}{voteLock}</Typography>}
       </div>
     )
   }
