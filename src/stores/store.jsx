@@ -171,6 +171,7 @@ class Store {
           website: 'gov.yfii.finance',
           link: 'https://gov.yfii.finance/',
           depositsEnabled: true,
+          hiddenHalfTime: true,
           tokens: [
             {
               id: 'yfii',
