@@ -124,6 +124,7 @@ class Store {
           link: 'https://curve.fi/y',
           YieldCalculatorLink: "https://yieldfarming.yfii.finance/yfii/ycrv/",   //收益率器地址
           depositsEnabled: true,
+          isVote: false,
           tokens: [
             {
               id: 'ycurvefi',
@@ -138,7 +139,6 @@ class Store {
               balance: 0,
               stakedBalance: 0,
               rewardsAvailable: 0,
-              halfTime: false
             }
           ]
         },
@@ -149,6 +149,7 @@ class Store {
           link: 'https://bal.yfii.finance/#/pool/0x16cAC1403377978644e78769Daa49d8f6B6CF565',
           YieldCalculatorLink: "https://yieldfarming.yfii.finance/yfii/yfii_dai/", //收益率器地址
           depositsEnabled: true,
+          isVote: false,
           tokens: [
             {
               id: 'bpt',
@@ -163,7 +164,6 @@ class Store {
               balance: 0,
               stakedBalance: 0,
               rewardsAvailable: 0,
-              halfTime: false
             }
           ]
         },
@@ -189,7 +189,6 @@ class Store {
               balance: 0,
               stakedBalance: 0,
               rewardsAvailable: 0,
-              voteLock: 0
             }
           ]
         },
@@ -313,41 +312,47 @@ class Store {
     async.map(pools, (pool, callback) => {
 
       async.map(pool.tokens, (token, callbackInner) => {
-
-        let list = [
-          (callbackInnerInner) => { this._getERC20Balance(web3, token, account, callbackInnerInner) },
-          (callbackInnerInner) => { this._getstakedBalance(web3, token, account, callbackInnerInner) },
-          (callbackInnerInner) => { this._getRewardsAvailable(web3, token, account, callbackInnerInner) }
-        ]
-
         if (pool.isVote) {
-          list.push(
+          async.parallel([
+            (callbackInnerInner) => { this._getERC20Balance(web3, token, account, callbackInnerInner) },
+            (callbackInnerInner) => { this._getstakedBalance(web3, token, account, callbackInnerInner) },
+            (callbackInnerInner) => { this._getRewardsAvailable(web3, token, account, callbackInnerInner) },
             (callbackInnerInner) => { this._getVoteLock(web3, token, account, callbackInnerInner) }
-          )
-        } else {
-          list.push(
-            (callbackInnerInner) => { this._getHalfTime(web3, token, account, callbackInnerInner) },
-          )
-        }
-
-        async.parallel(list, (err, data) => {
-          if(err) {
-            console.log(err)
-            return callbackInner(err)
-          }
-
-          token.balance = data[0]
-          token.stakedBalance = data[1]
-          token.rewardsAvailable = data[2]
-
-          if (pool.isVote) {
+          ], (err, data) => {
+            if(err) {
+              console.log(err)
+              return callbackInner(err)
+            }
+  
+            token.balance = data[0]
+            token.stakedBalance = data[1]
+            token.rewardsAvailable = data[2]
             token.voteLock = data[3]
-          } else {
-            token.halfTime = data[3]
-          }
 
-          callbackInner(null, token)
-        })
+            callbackInner(null, token)
+          })
+        } else {
+          async.parallel([
+            (callbackInnerInner) => { this._getERC20Balance(web3, token, account, callbackInnerInner) },
+            (callbackInnerInner) => { this._getstakedBalance(web3, token, account, callbackInnerInner) },
+            (callbackInnerInner) => { this._getRewardsAvailable(web3, token, account, callbackInnerInner) },
+            (callbackInnerInner) => { this._getHalfTime(web3, token, account, callbackInnerInner) }
+          ], (err, data) => {
+            if(err) {
+              console.log(err)
+              return callbackInner(err)
+            }
+  
+            token.balance = data[0]
+            token.stakedBalance = data[1]
+            token.rewardsAvailable = data[2]
+  
+            token.halfTime = data[3]
+          
+  
+            callbackInner(null, token)
+          })
+        }
       }, (err, tokensData) => {
         if(err) {
           console.log(err)
@@ -378,41 +383,47 @@ class Store {
     async.map(pools, (pool, callback) => {
 
       async.map(pool.tokens, (token, callbackInner) => {
-
-        let list = [
-          (callbackInnerInner) => { this._getERC20Balance(web3, token, account, callbackInnerInner) },
-          (callbackInnerInner) => { this._getstakedBalance(web3, token, account, callbackInnerInner) },
-          (callbackInnerInner) => { this._getRewardsAvailable(web3, token, account, callbackInnerInner) }
-        ]
-
         if (pool.isVote) {
-          list.push(
+          async.parallel([
+            (callbackInnerInner) => { this._getERC20Balance(web3, token, account, callbackInnerInner) },
+            (callbackInnerInner) => { this._getstakedBalance(web3, token, account, callbackInnerInner) },
+            (callbackInnerInner) => { this._getRewardsAvailable(web3, token, account, callbackInnerInner) },
             (callbackInnerInner) => { this._getVoteLock(web3, token, account, callbackInnerInner) }
-          )
-        } else {
-          list.push(
-            (callbackInnerInner) => { this._getHalfTime(web3, token, account, callbackInnerInner) },
-          )
-        }
-
-        async.parallel(list, (err, data) => {
-          if(err) {
-            console.log(err)
-            return callbackInner(err)
-          }
-
-          token.balance = data[0]
-          token.stakedBalance = data[1]
-          token.rewardsAvailable = data[2]
-
-          if (pool.isVote) {
+          ], (err, data) => {
+            if(err) {
+              console.log(err)
+              return callbackInner(err)
+            }
+  
+            token.balance = data[0]
+            token.stakedBalance = data[1]
+            token.rewardsAvailable = data[2]
             token.voteLock = data[3]
-          } else {
-            token.halfTime = data[3]
-          }
 
-          callbackInner(null, token)
-        })
+            callbackInner(null, token)
+          })
+        } else {
+          async.parallel([
+            (callbackInnerInner) => { this._getERC20Balance(web3, token, account, callbackInnerInner) },
+            (callbackInnerInner) => { this._getstakedBalance(web3, token, account, callbackInnerInner) },
+            (callbackInnerInner) => { this._getRewardsAvailable(web3, token, account, callbackInnerInner) },
+            (callbackInnerInner) => { this._getHalfTime(web3, token, account, callbackInnerInner) }
+          ], (err, data) => {
+            if(err) {
+              console.log(err)
+              return callbackInner(err)
+            }
+  
+            token.balance = data[0]
+            token.stakedBalance = data[1]
+            token.rewardsAvailable = data[2]
+  
+            token.halfTime = data[3]
+          
+  
+            callbackInner(null, token)
+          })
+        }
       }, (err, tokensData) => {
         if(err) {
           console.log(err)
@@ -532,12 +543,11 @@ class Store {
 
   _getVoteLock = async (web3, asset, account, callback) => {
     let erc20Contract = new web3.eth.Contract(asset.rewardsABI, asset.rewardsAddress)
-
     try {
-      var voteLock = await erc20Contract.methods.voteLock().call({ from: account.address });
-
+      var voteLock = await erc20Contract.methods.voteLock(account.address).call({ from: account.address });
       callback(null, voteLock)
     } catch(ex) {
+      console.log(ex)
       return callback(ex)
     }
   }

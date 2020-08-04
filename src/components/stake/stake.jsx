@@ -491,7 +491,7 @@ class Stake extends Component {
             color="primary"
             disabled={ loading }
             aria-describedby={id}
-            onClick={ pool.id === 'Governance V2' && !pool.tokens[0].voteLock ?  this.handleClick : this.onClaim } // 只有当投票页面voteLock等于0，弹框提示
+            onClick={ (pool.id === 'Governance V2' && (pool.tokens[0].voteLock == 0)) ?  this.handleClick : this.onClaim } // 只有当投票页面voteLock等于0，弹框提示
           >
             <Typography className={ classes.buttonText } variant={ 'h4'}>{t('Stake.ClaimRewards')}</Typography>
           </Button>
@@ -516,7 +516,7 @@ class Stake extends Component {
             color="primary"
             aria-describedby={id}
             disabled={ loading }
-            onClick={ pool.id === 'Governance V2' && !pool.tokens[0].voteLock ? this.handleClick: this.onExit} // 只有当投票页面voteLock等于0，弹框提示
+            onClick={ (pool.id === 'Governance V2' && (pool.tokens[0].voteLock == 0)) ? this.handleClick: this.onExit} // 只有当投票页面voteLock等于0，弹框提示
             >
             <Typography className={ classes.buttonText } variant={ 'h4'}>{t('Stake.Exit')}</Typography>
           </Button>
