@@ -768,7 +768,7 @@ class Store {
   _callPropose = async (account, callback) => {
     const web3 = new Web3(store.getStore('web3context').library.provider);
 
-    const governanceContract = new web3.eth.Contract(config.governanceABI, config.governanceAddress)
+    const governanceContract = new web3.eth.Contract(config.governanceV2ABI, config.governanceV2Address)
 
     governanceContract.methods.propose().send({ from: account.address, gasPrice: web3.utils.toWei(await this._getGasPrice(), 'gwei') })
       .on('transactionHash', function(hash){
@@ -834,7 +834,7 @@ class Store {
 
   _getProposalCount = async (web3, account, callback) => {
     try {
-      const governanceContract = new web3.eth.Contract(config.governanceABI, config.governanceAddress)
+      const governanceContract = new web3.eth.Contract(config.governanceV2ABI, config.governanceV2Address)
       var proposals = await governanceContract.methods.proposalCount().call({ from: account.address });
       callback(null, proposals)
     } catch(ex) {
@@ -844,9 +844,10 @@ class Store {
 
   _getProposals = async (web3, account, number, callback) => {
     try {
-      const governanceContract = new web3.eth.Contract(config.governanceABI, config.governanceAddress)
-      var proposals = await governanceContract.methods.proposals(number).call({ from: account.address });
-      callback(null, proposals)
+      const governanceContract = new web3.eth.Contract(config.governanceV2ABI, config.governanceV2Address)
+      var proposal = await governanceContract.methods.proposals(number).call({ from: account.address });
+      console.log(proposal)
+      callback(null, proposal)
     } catch(ex) {
       return callback(ex)
     }
@@ -857,7 +858,7 @@ class Store {
       const account = store.getStore('account')
       const web3 = new Web3(store.getStore('web3context').library.provider);
 
-      const governanceContract = new web3.eth.Contract(config.governanceABI, config.governanceAddress)
+      const governanceContract = new web3.eth.Contract(config.governanceV2ABI, config.governanceV2Address)
 
       const status = await governanceContract.methods.voters(account.address).call({ from: account.address })
 
@@ -933,7 +934,7 @@ class Store {
   _callVoteFor = async (proposal, account, callback) => {
     const web3 = new Web3(store.getStore('web3context').library.provider);
 
-    const governanceContract = new web3.eth.Contract(config.governanceABI, config.governanceAddress)
+    const governanceContract = new web3.eth.Contract(config.governanceV2ABI, config.governanceV2Address)
 
     governanceContract.methods.voteFor(proposal.id).send({ from: account.address, gasPrice: web3.utils.toWei(await this._getGasPrice(), 'gwei') })
       .on('transactionHash', function(hash){
@@ -983,7 +984,7 @@ class Store {
   _callVoteAgainst = async (proposal, account, callback) => {
     const web3 = new Web3(store.getStore('web3context').library.provider);
 
-    const governanceContract = new web3.eth.Contract(config.governanceABI, config.governanceAddress)
+    const governanceContract = new web3.eth.Contract(config.governanceV2ABI, config.governanceV2Address)
 
     governanceContract.methods.voteAgainst(proposal.id).send({ from: account.address, gasPrice: web3.utils.toWei(await this._getGasPrice(), 'gwei') })
       .on('transactionHash', function(hash){
@@ -1152,7 +1153,7 @@ class Store {
       const account = store.getStore('account')
       const web3 = new Web3(store.getStore('web3context').library.provider);
 
-      const governanceContract = new web3.eth.Contract(config.governanceABI, config.governanceAddress)
+      const governanceContract = new web3.eth.Contract(config.governanceV2ABI, config.governanceV2Address)
       let balance = await governanceContract.methods.balanceOf(account.address).call({ from: account.address })
       balance = parseFloat(balance)/10**18
 

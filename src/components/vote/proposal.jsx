@@ -5,7 +5,8 @@ import { withStyles } from '@material-ui/core/styles';
 import {
   Typography,
   TextField,
-  Button
+  Button,
+  Box,
 } from '@material-ui/core';
 import { withNamespaces } from 'react-i18next';
 
@@ -15,9 +16,14 @@ import {
   VOTE_FOR_RETURNED,
   VOTE_AGAINST,
   VOTE_AGAINST_RETURNED,
-  GET_BALANCES_RETURNED
+  GET_BALANCES_RETURNED,
+  REGISTER_VOTE,
+  REGISTER_VOTE_RETURNED,
+  GET_VOTE_STATUS_RETURNED,
+  GOVERNANCE_CONTRACT_CHANGED,
 } from '../../constants'
 
+import CopyIcon from '@material-ui/icons/FileCopy';
 import { colors } from '../../theme'
 
 import Store from "../../stores";
@@ -27,6 +33,12 @@ const store = Store.store
 
 
 const styles = theme => ({
+  root: {
+    display: 'flex',
+    width: '100%',
+    flexDirection: 'column',
+    padding: '0px 36px 0px 18px'
+  },
   value: {
     cursor: 'pointer'
   },
@@ -86,7 +98,10 @@ const styles = theme => ({
     }
   },
   heading: {
-    paddingBottom: '40px',
+    flexShrink: 0
+  },
+  YIPheading: {
+    width: '64px',
     flexShrink: 0
   },
   right: {
@@ -96,13 +111,35 @@ const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     flex: 1,
-    minWidth: '100%',
     flexWrap: 'wrap',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    paddingBottom: '24px',
   },
   grey: {
     color: colors.darkGray
   },
+  headingName: {
+    flex: 2,
+    flexShrink: 0,
+    display: 'flex',
+    alignItems: 'center',
+    minWidth: '100%',
+    [theme.breakpoints.up('sm')]: {
+      minWidth: 'auto',
+    }
+  },
+  proposerAddressContainer: {
+    cursor: 'pointer',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    '& > svg': {
+      visibility: 'hidden',
+    },
+    '&:hover > svg': {
+      visibility: 'visible'
+    }
+  }
 });
 
 
@@ -111,7 +148,8 @@ class Proposal extends Component {
   constructor() {
     super()
 
-    let now = store.getStore('currentBlock')
+    const now = store.getStore('currentBlock')
+    const votingStatus = store.getStore('votingStatus')
 
     this.state = {
       amount: '',
@@ -120,7 +158,8 @@ class Proposal extends Component {
       redeemAmountError: false,
       account: store.getStore('account'),
       currentBlock: now,
-      currentTime: new Date().getTime()
+      currentTime: new Date().getTime(),
+      votingStatus: votingStatus,
     }
   }
 
@@ -128,6 +167,8 @@ class Proposal extends Component {
     emitter.on(VOTE_FOR_RETURNED, this.voteForReturned);
     emitter.on(VOTE_AGAINST_RETURNED, this.voteAgainstReturned);
     emitter.on(GET_BALANCES_RETURNED, this.balancesUpdated);
+    emitter.on(REGISTER_VOTE_RETURNED, this.registerReturned);
+    emitter.on(GET_VOTE_STATUS_RETURNED, this.voteStatusReturned);
     emitter.on(ERROR, this.errorReturned);
   }
 
@@ -135,8 +176,25 @@ class Proposal extends Component {
     emitter.removeListener(VOTE_FOR_RETURNED, this.voteForReturned);
     emitter.removeListener(VOTE_AGAINST_RETURNED, this.voteAgainstReturned);
     emitter.removeListener(GET_BALANCES_RETURNED, this.balancesUpdated);
+    emitter.removeListener(REGISTER_VOTE_RETURNED, this.registerReturned);
+    emitter.removeListener(GET_VOTE_STATUS_RETURNED, this.voteStatusReturned);
     emitter.removeListener(ERROR, this.errorReturned);
   };
+
+
+  registerReturned = () => {
+    this.setState({
+      votingStatus: store.getStore('votingStatus'),
+      loading: false
+    })
+  };
+
+  voteStatusReturned = () => {
+    this.setState({
+      votingStatus: store.getStore('votingStatus'),
+      loading: false
+    })
+  }
 
   balancesUpdated = () => {
     let now = store.getStore('currentBlock')
@@ -161,12 +219,9 @@ class Proposal extends Component {
       account,
       loading,
       currentBlock,
-      currentTime
+      currentTime,
+      votingStatus,
     } = this.state
-
-    if(proposal.end < currentBlock) {
-      return <div></div>
-    }
 
     const blocksTillEnd = proposal.end - currentBlock
     const blocksSinceStart = currentBlock - proposal.start
@@ -174,52 +229,117 @@ class Proposal extends Component {
     const endTime = currentTime + (blocksTillEnd * 1000 * 13.8)
     const startTime = currentTime - (blocksSinceStart * 1000 * 13.8)
 
-    return (<div className={ classes.actionsContainer }>
-      <div className={ classes.assetSummary }>
-        <div className={classes.heading}>
-          <Typography variant={ 'h3' }>{ proposal.start }</Typography>
-          <Typography variant={ 'h5' } className={ classes.grey }>Vote Start Block</Typography>
+    const yipURL = proposal.id === 0 ? proposal.hash : `https://yips.yfii.finance/YIPS/yip-${parseInt(proposal.id) + 1}`;
+
+    var address = null;
+
+    if (proposal.executor) {
+      address = proposal.executor.substring(0,8)+'...'+proposal.executor.substring(proposal.executor.length-6,proposal.executor.length)
+    }
+
+    const hashURL = proposal.id == 0 ? 'https://ipfs.io/ipfs/QmeeWZNPo88sWXNR7CHcQ7Vcb2kTpUCVczTytFo4UsziYD' : proposal.hash
+
+    return (
+      <div className={ classes.root }>
+        <div className={ classes.assetSummary }>
+          <div className={ classes.headingName }>
+            <div className={classes.YIPheading}>
+              <Typography variant={ 'h3' }><a href={ yipURL } target="_blank">YIP</a></Typography>
+              <Typography variant={ 'h5' } className={ classes.grey }>Link</Typography>
+            </div>
+            <div>
+              <div className={ classes.proposerAddressContainer }>
+                <Typography variant={'h3'}>{address}</Typography>
+                <Box ml={1} />
+                <CopyIcon onClick={(e) => { this.copyAddressToClipboard(e, proposal.executor) } } fontSize="small" />
+              </div>
+              <Typography variant={ 'h5' } className={ classes.grey }>Executor</Typography>
+            </div>
+          </div>
+          <div className={classes.heading}>
+            <Typography variant={ 'h3' }>~{ moment(startTime).format("YYYY/MM/DD kk:mm") }</Typography>
+            <Typography variant={ 'h5' } className={ classes.grey }>Vote Start: {proposal.start}</Typography>
+          </div>
         </div>
-        <div className={classes.heading}>
-          <Typography variant={ 'h3' }>~{ moment(startTime).format("YYYY/MM/DD kk:mm") }</Typography>
-          <Typography variant={ 'h5' } className={ classes.grey }>Vote Start Time</Typography>
+        <div className={ classes.assetSummary }>
+          <div className={ classes.headingName }>
+            <div className={classes.YIPheading}>
+              <Typography variant={ 'h3' }><a href={ hashURL } target="_blank">IPFS</a></Typography>
+              <Typography variant={ 'h5' } className={ classes.grey }>Link</Typography>
+            </div>
+            <div>
+              <Typography variant={ 'h3' }>{ proposal.quorum } / { proposal.quorumRequired }</Typography>
+              <Typography variant={ 'h5' } className={ classes.grey }>Quorum/Required</Typography>
+            </div>
+          </div>
+          <div className={classes.heading}>
+            <Typography variant={ 'h3' }>~{ moment(endTime).format("YYYY/MM/DD kk:mm") }</Typography>
+            <Typography variant={ 'h5' } className={ classes.grey }>Vote End: {proposal.end}</Typography>
+          </div>
         </div>
-        <div className={classes.heading}>
-          <Typography variant={ 'h3' }>{ proposal.end }</Typography>
-          <Typography variant={ 'h5' } className={ classes.grey }>Vote End Block</Typography>
-        </div>
-        <div className={classes.heading}>
-          <Typography variant={ 'h3' }>~{ moment(endTime).format("YYYY/MM/DD kk:mm") }</Typography>
-          <Typography variant={ 'h5' } className={ classes.grey }>Vote End Time</Typography>
-        </div>
+        { proposal.end > currentBlock &&
+          <div>
+            { votingStatus !== true &&
+              <div className={ classes.actionsContainer }>
+                <div className={ classes.tradeContainer }>
+                  <Button
+                    className={ classes.actionButton }
+                    variant="outlined"
+                    color="primary"
+                    disabled={ loading }
+                    onClick={ this.onRegister }
+                    fullWidth
+                    >
+                    <Typography className={ classes.buttonText } variant={ 'h5'} color={'secondary'}>Register</Typography>
+                  </Button>
+                </div>
+              </div>
+            }
+            { votingStatus === true &&
+              <div className={ classes.actionsContainer }>
+                <div className={ classes.tradeContainer }>
+                  <Button
+                    className={ classes.actionButton }
+                    variant="outlined"
+                    color="primary"
+                    disabled={ loading || proposal.end < currentBlock }
+                    onClick={ this.onVoteFor }
+                    fullWidth
+                    >
+                    <Typography className={ classes.buttonText } variant={ 'h5'} color={'secondary'}>Vote For</Typography>
+                  </Button>
+                </div>
+                <div className={ classes.sepperator }></div>
+                <div className={classes.tradeContainer}>
+                  <Button
+                    className={ classes.actionButton }
+                    variant="outlined"
+                    color="primary"
+                    disabled={ loading || proposal.end < currentBlock }
+                    onClick={ this.onVoteAgainst }
+                    fullWidth
+                    >
+                    <Typography className={ classes.buttonText } variant={ 'h5'} color='secondary'>Vote Against</Typography>
+                  </Button>
+                </div>
+              </div>
+            }
+          </div>
+        }
       </div>
-      <div className={ classes.tradeContainer }>
-        <Button
-          className={ classes.actionButton }
-          variant="outlined"
-          color="primary"
-          disabled={ loading || proposal.end < currentBlock }
-          onClick={ this.onVoteFor }
-          fullWidth
-          >
-          <Typography className={ classes.buttonText } variant={ 'h5'} color={'secondary'}>Vote For</Typography>
-        </Button>
-      </div>
-      <div className={ classes.sepperator }></div>
-      <div className={classes.tradeContainer}>
-        <Button
-          className={ classes.actionButton }
-          variant="outlined"
-          color="primary"
-          disabled={ loading || proposal.end < currentBlock }
-          onClick={ this.onVoteAgainst }
-          fullWidth
-          >
-          <Typography className={ classes.buttonText } variant={ 'h5'} color='secondary'>Vote Against</Typography>
-        </Button>
-      </div>
-    </div>)
+    )
   };
+
+  copyAddressToClipboard = (event, address) => {
+    event.stopPropagation();
+    navigator.clipboard.writeText(address).then(() => {
+      this.showAddressCopiedSnack();
+    });
+  }
+
+  showAddressCopiedSnack = () => {
+    this.props.showSnackbar("Address Copied to Clipboard", 'Success')
+  }
 
   onVoteFor = () => {
     const { proposal, startLoading } = this.props
@@ -235,6 +355,14 @@ class Proposal extends Component {
     this.setState({ loading: true })
     startLoading()
     dispatcher.dispatch({ type: VOTE_AGAINST, content: { proposal: proposal } })
+  }
+
+  onRegister = () => {
+    const { startLoading } = this.props
+
+    this.setState({ loading: true })
+    startLoading()
+    dispatcher.dispatch({ type: REGISTER_VOTE, content: {  } })
   }
 }
 
