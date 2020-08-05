@@ -273,7 +273,7 @@ class Stake extends Component {
       anchorEl: null
     }
 
-    if(pool && ['Fee Rewards', 'Governance'].includes(pool.id)) {
+    if(pool && ['Governance V2'].includes(pool.id)) {
       dispatcher.dispatch({ type: GET_YCRV_REQUIREMENTS, content: {} })
     }
   }
@@ -466,7 +466,7 @@ class Stake extends Component {
 
   renderOptions = () => {
     const { classes, t } = this.props;
-    const { loading, pool, voteLockValid, balanceValid, anchorEl } = this.state
+    const { loading, pool, voteLockValid, balanceValid, anchorEl, voteLock } = this.state
 
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
@@ -493,7 +493,7 @@ class Stake extends Component {
             color="primary"
             disabled={ loading }
             aria-describedby={id}
-            onClick={ (pool.id === 'Governance V2' && (pool.tokens[0].voteLock == 0)) ?  this.handleClick : this.onClaim } // 只有当投票页面voteLock等于0，弹框提示
+            onClick={ (pool.id === 'Governance V2' && (voteLock == 0)) ?  this.handleClick : this.onClaim } // 只有当投票页面voteLock等于0，弹框提示
           >
             <Typography className={ classes.buttonText } variant={ 'h4'}>{t('Stake.ClaimRewards')}</Typography>
           </Button>
@@ -506,7 +506,7 @@ class Stake extends Component {
             color="primary"
             disabled={ loading }
             // onClick={ () => { this.navigateInternal('unstake') } }
-            onClick= { (pool.id === 'Governance V2' && moment(parseInt(pool.tokens[0].voteLock)*1000).isAfter()) ? this.handleClick: this.onExit}
+            onClick= { (pool.id === 'Governance V2' && voteLockValid) ? this.handleClick: this.onExit}
           >
             <Typography className={ classes.buttonText } variant={ 'h4'}>{t('Stake.UnstakeTokens')}</Typography>
           </Button>
@@ -519,7 +519,7 @@ class Stake extends Component {
             color="primary"
             aria-describedby={id}
             disabled={ loading }
-            onClick={ (pool.id === 'Governance V2' && (pool.tokens[0].voteLock == 0)) ? this.handleClick : moment(parseInt(pool.tokens[0].voteLock)*1000).isAfter() ? this.handleClick : this.onExit } // 只有当投票页面voteLock等于0，弹框提示
+            onClick={ (pool.id === 'Governance V2' && (voteLock == 0)) ? this.handleClick : voteLockValid ? this.handleClick : this.onExit } // 只有当投票页面voteLock等于0，弹框提示
             >
             <Typography className={ classes.buttonText } variant={ 'h4'}>{t('Stake.Exit')}</Typography>
           </Button>
@@ -537,7 +537,7 @@ class Stake extends Component {
               horizontal: 'left',
             }}
           >
-            <Typography className={ classes.buttonText }  variant={ 'h4'}>{moment(parseInt(pool.tokens[0].voteLock)*1000).isAfter()?`${t('Stake.ComeSoon2')} ${moment(parseInt(pool.tokens[0].voteLock)*1000).format("dddd, MMMM Do YYYY, h:mm:ss a")}`: `${t('Stake.ComeSoon')}`}</Typography>
+            <Typography className={ classes.buttonText }  variant={ 'h4'}>{voteLockValid?`${t('Stake.ComeSoon2')} ${voteLock}`: `${t('Stake.ComeSoon')}`}</Typography>
           </Popover>
         </div>
       </div>

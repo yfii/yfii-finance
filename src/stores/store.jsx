@@ -317,7 +317,6 @@ class Store {
             (callbackInnerInner) => { this._getERC20Balance(web3, token, account, callbackInnerInner) },
             (callbackInnerInner) => { this._getstakedBalance(web3, token, account, callbackInnerInner) },
             (callbackInnerInner) => { this._getRewardsAvailable(web3, token, account, callbackInnerInner) },
-            (callbackInnerInner) => { this._getVoteLock(web3, token, account, callbackInnerInner) }
           ], (err, data) => {
             if(err) {
               console.log(err)
@@ -327,7 +326,6 @@ class Store {
             token.balance = data[0]
             token.stakedBalance = data[1]
             token.rewardsAvailable = data[2]
-            token.voteLock = data[3]
 
             callbackInner(null, token)
           })
@@ -388,7 +386,6 @@ class Store {
             (callbackInnerInner) => { this._getERC20Balance(web3, token, account, callbackInnerInner) },
             (callbackInnerInner) => { this._getstakedBalance(web3, token, account, callbackInnerInner) },
             (callbackInnerInner) => { this._getRewardsAvailable(web3, token, account, callbackInnerInner) },
-            (callbackInnerInner) => { this._getVoteLock(web3, token, account, callbackInnerInner) }
           ], (err, data) => {
             if(err) {
               console.log(err)
@@ -398,7 +395,6 @@ class Store {
             token.balance = data[0]
             token.stakedBalance = data[1]
             token.rewardsAvailable = data[2]
-            token.voteLock = data[3]
 
             callbackInner(null, token)
           })
@@ -537,17 +533,6 @@ class Store {
 
       callback(null, halfTime * 1000)
     } catch(ex) {
-      return callback(ex)
-    }
-  }
-
-  _getVoteLock = async (web3, asset, account, callback) => {
-    let erc20Contract = new web3.eth.Contract(asset.rewardsABI, asset.rewardsAddress)
-    try {
-      var voteLock = await erc20Contract.methods.voteLock(account.address).call({ from: account.address });
-      callback(null, voteLock)
-    } catch(ex) {
-      console.log(ex)
       return callback(ex)
     }
   }

@@ -100,7 +100,7 @@
   "Stake.Back": "Back",
   "Stake.Unstake": "Unstake",
   "Stake.ComeSoon": "Get yCRV rewards after voting a proposal.",
-  "Stake.ComeSoon2": "Can be unlocked after",
+  "Stake.ComeSoon2": "Can be unlocked after blockNumber",
 
   "Vote.Wallet": "Wallet",
   "Vote.GoToVotingDashboard": "Go to Voting Dashboard",
