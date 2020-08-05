@@ -464,6 +464,16 @@ class Stake extends Component {
   };
 
 
+  // 领取奖励的按钮 ：
+  // 0: 需要去投票
+  // 退出按钮
+
+  // 取消质押的按钮：
+
+  // 有值 且 小于当前区块高度：需要等到xxx区块才能取消
+  // 0: 需要去投票
+  // 有值 且 小于当前区块高度： 要等到xxx区块才能取消
+
   renderOptions = () => {
     const { classes, t } = this.props;
     const { loading, pool, voteLockValid, balanceValid, anchorEl, voteLock } = this.state
@@ -506,7 +516,7 @@ class Stake extends Component {
             color="primary"
             disabled={ loading }
             // onClick={ () => { this.navigateInternal('unstake') } }
-            onClick= { (pool.id === 'Governance V2' && voteLockValid) ? (voteLock == 0 ? this.onExit : this.handleClick) : this.handleClick }
+            onClick= {(pool.id === 'Governance V2' && voteLock != 0 && voteLockValid) ? this.handleClick : this.navigateInternal.bind(this, 'unstake') }
           >
             <Typography className={ classes.buttonText } variant={ 'h4'}>{t('Stake.UnstakeTokens')}</Typography>
           </Button>
@@ -519,8 +529,8 @@ class Stake extends Component {
             color="primary"
             aria-describedby={id}
             disabled={ loading }
-            onClick={ (pool.id === 'Governance V2' && (voteLock == 0)) ? this.handleClick : voteLockValid ? this.handleClick : this.onExit } // 只有当投票页面voteLock等于0，弹框提示
-            >
+            onClick={ (pool.id === 'Governance V2' && (voteLock == 0 || voteLockValid)) ? this.handleClick : this.onExit}
+          >
             <Typography className={ classes.buttonText } variant={ 'h4'}>{t('Stake.Exit')}</Typography>
           </Button>
           <Popover
@@ -537,7 +547,7 @@ class Stake extends Component {
               horizontal: 'left',
             }}
           >
-            <Typography className={ classes.buttonText }  variant={ 'h4'}>{voteLockValid?`${t('Stake.ComeSoon2')} ${voteLock}`: `${t('Stake.ComeSoon')}`}</Typography>
+            <Typography className={ classes.buttonText }  variant={ 'h4'}>{voteLock == 0 || voteLockValid ?`${t('Stake.ComeSoon2')} ${voteLock}`: `${t('Stake.ComeSoon')}`}</Typography>
           </Popover>
         </div>
       </div>
