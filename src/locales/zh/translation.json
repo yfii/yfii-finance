@@ -104,6 +104,7 @@
   "Stake.Back": "返回",
   "Stake.Unstake": "取消抵押",
   "Stake.ComeSoon": "投票后即可提取奖励。",
+  "Stake.ComeSoon2": "解锁需要等到",
 
   "Vote.Wallet": "钱包",
   "Vote.GoToVotingDashboard": "返回投票页面",

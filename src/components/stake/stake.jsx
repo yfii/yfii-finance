@@ -11,6 +11,8 @@ import {
 import Link from '@material-ui/core/Link';
 import Popover from '@material-ui/core/Popover';
 
+import moment from 'moment'; 
+
 import { withNamespaces } from 'react-i18next';
 
 import CheckIcon from '@material-ui/icons/Check';
@@ -502,9 +504,10 @@ class Stake extends Component {
             className={ classes.actionButton }
             variant="outlined"
             color="primary"
-            disabled={ (pool.id === 'Governance' ? (loading || voteLockValid ) : loading  ) }
-            onClick={ () => { this.navigateInternal('unstake') } }
-            >
+            disabled={ loading }
+            // onClick={ () => { this.navigateInternal('unstake') } }
+            onClick= { (pool.id === 'Governance V2' && moment(parseInt(pool.tokens[0].voteLock)*1000).isAfter()) ? this.handleClick: this.onExit}
+          >
             <Typography className={ classes.buttonText } variant={ 'h4'}>{t('Stake.UnstakeTokens')}</Typography>
           </Button>
         </div>
@@ -516,7 +519,7 @@ class Stake extends Component {
             color="primary"
             aria-describedby={id}
             disabled={ loading }
-            onClick={ (pool.id === 'Governance V2' && (pool.tokens[0].voteLock == 0)) ? this.handleClick: this.onExit} // 只有当投票页面voteLock等于0，弹框提示
+            onClick={ (pool.id === 'Governance V2' && (pool.tokens[0].voteLock == 0)) ? this.handleClick : moment(parseInt(pool.tokens[0].voteLock)*1000).isAfter() ? this.handleClick : this.onExit } // 只有当投票页面voteLock等于0，弹框提示
             >
             <Typography className={ classes.buttonText } variant={ 'h4'}>{t('Stake.Exit')}</Typography>
           </Button>
@@ -534,7 +537,7 @@ class Stake extends Component {
               horizontal: 'left',
             }}
           >
-            <Typography className={ classes.buttonText }  variant={ 'h4'}>{t('Stake.ComeSoon')}</Typography>
+            <Typography className={ classes.buttonText }  variant={ 'h4'}>{moment(parseInt(pool.tokens[0].voteLock)*1000).isAfter()?`${t('Stake.ComeSoon2')} ${moment(parseInt(pool.tokens[0].voteLock)*1000).format("dddd, MMMM Do YYYY, h:mm:ss a")}`: `${t('Stake.ComeSoon')}`}</Typography>
           </Popover>
         </div>
       </div>
