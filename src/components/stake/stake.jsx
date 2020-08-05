@@ -547,7 +547,7 @@ class Stake extends Component {
               horizontal: 'left',
             }}
           >
-            <Typography className={ classes.buttonText }  variant={ 'h4'}>{voteLock == 0 || voteLockValid ?`${t('Stake.ComeSoon2')} ${voteLock}`: `${t('Stake.ComeSoon')}`}</Typography>
+            <Typography className={ classes.buttonText }  variant={ 'h4'}>{voteLock != 0 && voteLockValid ?`${t('Stake.ComeSoon2')} ${voteLock}`: `${t('Stake.ComeSoon')}`}</Typography>
           </Popover>
         </div>
       </div>
