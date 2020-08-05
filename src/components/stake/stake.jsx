@@ -506,7 +506,7 @@ class Stake extends Component {
             color="primary"
             disabled={ loading }
             // onClick={ () => { this.navigateInternal('unstake') } }
-            onClick= { (pool.id === 'Governance V2' && voteLockValid) ? this.handleClick: this.onExit}
+            onClick= { (pool.id === 'Governance V2' && voteLockValid) ? (voteLock == 0 ? this.onExit : this.handleClick) : this.handleClick }
           >
             <Typography className={ classes.buttonText } variant={ 'h4'}>{t('Stake.UnstakeTokens')}</Typography>
           </Button>
