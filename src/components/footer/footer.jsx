@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import {
   Typography,
   Select,
-  MenuItem,
   FormControl,
 } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
@@ -14,6 +13,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import CloseIcon from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import Link from '@material-ui/core/Link';
 import { withNamespaces } from 'react-i18next';
@@ -24,11 +25,6 @@ import Store from "../../stores";
 const store = Store.store
 
 const styles = theme => ({
-  // root: {
-  //   // position: 'absolute',
-  //   // top: '0px',
-  //   width: '100%',
-  // },
   root: {
     flexGrow: 1,
     width: '100%',
@@ -106,14 +102,46 @@ class Footer extends Component {
     this.state = {
       rewardPools: rewardPools,
       languages: store.getStore('languages'),
-      language: 'en',
-      open: true
+      language: this.switchLanguage(),
+      open: true,
+      anchorEl: null
+    }
+  }
+
+  switchLanguage = () => {
+    switch(i18n.language) {
+      case 'zh':
+      case 'zh-CN':
+        return '中文'
+      case 'en':
+        return 'English'
+      case 'ja':
+        return '日本語'
+      default:
+        return 'English'
     }
   }
 
   closeAlert = () => {
     this.setState({open: false})
   }
+
+  setAnchorEl = anchorEl => [
+    this.setState({ anchorEl })
+  ]
+
+  handleClick = (event) => {
+    this.setAnchorEl(event.currentTarget);
+  };
+
+  handleClose = (language) => {
+    let self = this
+    i18n.changeLanguage(language).then(() => {
+      self.setState({ language: self.switchLanguage(language)})
+      self.setAnchorEl(null)
+    })
+  };
+
 
   renderRewards = () => {
     const { rewardPools } = this.state
@@ -133,7 +161,7 @@ class Footer extends Component {
 
   render() {
     const { classes, t, location } = this.props;
-    const { open } = this.state
+    const { open, anchorEl, language } = this.state
 
     return (
     <div className={classes.root}>
@@ -151,6 +179,18 @@ class Footer extends Component {
             {this.renderRewards()}
           </Typography>
           <div className={classes.buttons}>
+            <Button aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleClick}>{language}</Button>
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={this.handleClose}
+            >
+              <MenuItem onClick={this.handleClose.bind(this, 'zh')}>中文</MenuItem>
+              <MenuItem onClick={this.handleClose.bind(this, 'en')}>English</MenuItem>
+              <MenuItem onClick={this.handleClose.bind(this, 'ja')}>日本語</MenuItem>
+            </Menu>
             <Link href="https://twitter.com/FinanceYfii" target="_blank">Twitter</Link>
             <Link href="https://t.me/yfiifinance" target="_blank">Telegram</Link>
             <Link href="https://discord.gg/XQ4wnmz" target="_blank">Discord</Link>
