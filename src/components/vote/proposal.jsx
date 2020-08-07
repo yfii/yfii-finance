@@ -237,7 +237,7 @@ class Proposal extends Component {
       address = proposal.executor.substring(0,8)+'...'+proposal.executor.substring(proposal.executor.length-6,proposal.executor.length)
     }
 
-    const hashURL = proposal.id == 0 ? 'https://ipfs.io/ipfs/QmeeWZNPo88sWXNR7CHcQ7Vcb2kTpUCVczTytFo4UsziYD' : proposal.hash
+    const hashURL = proposal.id == 0 ? 'https://ipfs.io/ipfs/QmeeWZNPo88sWXNR7CHcQ7Vcb2kTpUCVczTytFo4UsziYD' : "https://ipfs.io/ipfs/"+proposal.hash
 
     return (
       <div className={ classes.root }>
