@@ -122,7 +122,7 @@ class Store {
           name: 'yearn.finance',
           website: 'curve.fi/y',
           link: 'https://curve.fi/y',
-          YieldCalculatorLink: "https://yieldfarming.info/yfii/yfii_dai/",   //收益率器地址
+          YieldCalculatorLink: "https://yieldfarming.info/yfii/ycrv/",   //收益率器地址
           depositsEnabled: true,
           isVote: false,
           tokens: [
