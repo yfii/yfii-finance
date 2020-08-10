@@ -528,7 +528,7 @@ class Stake extends Component {
             variant="outlined"
             color="primary"
             aria-describedby={id}
-            disabled={ loading }
+            disabled={ loading || pool.id === 'Governance V2' }
             onClick={ (pool.id === 'Governance V2' && (voteLock == 0 || voteLockValid)) ? this.handleClick : this.onExit}
           >
             <Typography className={ classes.buttonText } variant={ 'h4'}>{t('Stake.Exit')}</Typography>
