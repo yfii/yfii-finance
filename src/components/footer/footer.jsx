@@ -118,7 +118,7 @@ class Footer extends Component {
       case 'ja':
         return '日本語'
       case 'th':
-        return 'ภาษาไทย'
+        return 'ไทย'
       default:
         return 'English'
     }
@@ -192,7 +192,7 @@ class Footer extends Component {
               <MenuItem onClick={this.handleClose.bind(this, 'zh')}>中文</MenuItem>
               <MenuItem onClick={this.handleClose.bind(this, 'en')}>English</MenuItem>
               <MenuItem onClick={this.handleClose.bind(this, 'ja')}>日本語</MenuItem>
-              <MenuItem onClick={this.handleClose.bind(this, 'th')}>ภาษาไทย</MenuItem>
+              <MenuItem onClick={this.handleClose.bind(this, 'th')}>ไทย</MenuItem>
             </Menu>
             <Link href="https://twitter.com/FinanceYfii" target="_blank">Twitter</Link>
             <Link href="https://t.me/yfiifinance" target="_blank">Telegram</Link>
