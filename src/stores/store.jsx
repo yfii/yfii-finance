@@ -75,7 +75,7 @@ class Store {
       connectorsByName: {
         MetaMask: injected,
         TrustWallet: injected,
-        // WalletConnect: walletconnect,
+        WalletConnect: walletconnect,
         WalletLink: walletlink,
         Ledger: ledger,
         Trezor: trezor,
