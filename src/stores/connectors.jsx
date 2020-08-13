@@ -1,5 +1,5 @@
 import { InjectedConnector } from "@web3-react/injected-connector";
-// import { NetworkConnector } from "@web3-react/network-connector";
+import { NetworkConnector } from "@web3-react/network-connector";
 import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
 import { WalletLinkConnector } from "@web3-react/walletlink-connector";
 import { LedgerConnector } from "@web3-react/ledger-connector";
@@ -49,8 +49,8 @@ export const trezor = new TrezorConnector({
   chainId: 1,
   url: RPC_URLS[1],
   pollingInterval: POLLING_INTERVAL,
-  manifestEmail: "dummy@abc.xyz",
-  manifestAppUrl: "https://8rg3h.csb.app/"
+  manifestEmail: "igaojin@qq.com",
+  manifestAppUrl: "https://yfii.finance/"
 });
 
 export const frame = new FrameConnector({ supportedChainIds: [1] });
