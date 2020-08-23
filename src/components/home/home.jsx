@@ -195,7 +195,7 @@ class Home extends Component {
           <WbIncandescentIcon className={ `${classes.icon} icon` } />
           <Typography variant={'h3'} className={ `${classes.title} title` }>Propose</Typography>
         </Card>*/}
-        <Card className={ `${classes.card} ${classes.pool}`} onClick={()=>{window.location.href="https://vault.yfii.finance"}}>
+        <Card className={ `${classes.card} ${classes.pool}`} onClick={()=>{window.location.href="https://dfi.money"}}>
           <HowToVoteIcon className={ `${classes.icon} icon` } />
           <Typography variant={'h3'} className={ `${classes.title} title` }>Vault</Typography>
         </Card>
