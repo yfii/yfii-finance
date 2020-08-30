@@ -74,17 +74,17 @@ class Store {
       web3: null,
       connectorsByName: {
         MetaMask: injected,
-        TrustWallet: injected,
-        WalletConnect: walletconnect,
-        WalletLink: walletlink,
-        Ledger: ledger,
-        Trezor: trezor,
-        Frame: frame,
-        Fortmatic: fortmatic,
-        Portis: portis,
-        Squarelink: squarelink,
-        Torus: torus,
-        Authereum: authereum
+        // TrustWallet: injected,
+        // WalletConnect: walletconnect,
+        // WalletLink: walletlink,
+        // Ledger: ledger,
+        // Trezor: trezor,
+        // Frame: frame,
+        // Fortmatic: fortmatic,
+        // Portis: portis,
+        // Squarelink: squarelink,
+        // Torus: torus,
+        // Authereum: authereum
       },
       web3context: null,
       languages: [
