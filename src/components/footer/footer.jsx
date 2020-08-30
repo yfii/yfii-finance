@@ -194,7 +194,7 @@ class Footer extends Component {
               <MenuItem onClick={this.handleClose.bind(this, 'ja')}>日本語</MenuItem>
               <MenuItem onClick={this.handleClose.bind(this, 'th')}>ไทย</MenuItem>
             </Menu>
-            <Link href="https://twitter.com/FinanceYfii" target="_blank">Twitter</Link>
+            <Link href="https://twitter.com/DfiMoney" target="_blank">Twitter</Link>
             <Link href="https://t.me/yfiifinance" target="_blank">Telegram</Link>
             <Link href="https://discord.gg/XQ4wnmz" target="_blank">Discord</Link>
             <Link color="inherit">wechat:myGrassU</Link>
