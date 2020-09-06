@@ -438,7 +438,7 @@ class Vote extends Component {
             <div className={ classes.assetSummary }>
               <div className={classes.headingName}>
                 <div className={ classes.assetIcon }>
-                  <Typography variant={ 'h3' }>{ proposal.id }</Typography>
+                  <Typography variant={ 'h3' }>{ parseInt(proposal.id) + 1}</Typography>
                 </div>
                 <div>
                   <div className={ classes.proposerAddressContainer }>
