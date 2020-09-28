@@ -172,7 +172,7 @@ class Store {
           name: 'Governance V2          ',
           website: 'gov.yfii.finance',
           link: 'https://gov.yfii.finance/',
-          depositsEnabled: true,
+          depositsEnabled: false,
           hiddenHalfTime: true,
           isVote: true,
           tokens: [

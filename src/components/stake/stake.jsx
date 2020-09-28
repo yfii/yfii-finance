@@ -489,7 +489,7 @@ class Stake extends Component {
             className={ classes.primaryButton }
             variant="outlined"
             color="primary"
-            disabled={ !pool.depositsEnabled || (pool.id === 'Fee Rewards' ?  (loading || !voteLockValid || !balanceValid) : loading) }
+            disabled={ !pool.depositsEnabled || ( pool.id === 'Governance V2' ?  (loading || !voteLockValid || !balanceValid) : loading) }
             onClick={ () => { this.navigateInternal('stake') } }
             >
             <Typography className={ classes.stakeButtonText } variant={ 'h4'}>{t('Stake.StakeTokens')}</Typography>
@@ -503,7 +503,7 @@ class Stake extends Component {
             color="primary"
             disabled={ loading }
             aria-describedby={id}
-            onClick={ (pool.id === 'Governance V2' && (voteLock == 0)) ?  this.handleClick : this.onClaim } // 只有当投票页面voteLock等于0，弹框提示
+            onClick={   this.onClaim } // 只有当投票页面voteLock等于0，弹框提示
           >
             <Typography className={ classes.buttonText } variant={ 'h4'}>{t('Stake.ClaimRewards')}</Typography>
           </Button>
@@ -516,7 +516,7 @@ class Stake extends Component {
             color="primary"
             disabled={ loading }
             // onClick={ () => { this.navigateInternal('unstake') } }
-            onClick= {(pool.id === 'Governance V2' && voteLock != 0 && voteLockValid) ? this.handleClick : this.navigateInternal.bind(this, 'unstake') }
+            onClick= {this.navigateInternal.bind(this, 'unstake') }
           >
             <Typography className={ classes.buttonText } variant={ 'h4'}>{t('Stake.UnstakeTokens')}</Typography>
           </Button>
@@ -528,8 +528,8 @@ class Stake extends Component {
             variant="outlined"
             color="primary"
             aria-describedby={id}
-            disabled={ loading || pool.id === 'Governance V2' }
-            onClick={ (pool.id === 'Governance V2' && (voteLock == 0 || voteLockValid)) ? this.handleClick : this.onExit}
+            disabled={ loading }
+            onClick={ this.onExit}
           >
             <Typography className={ classes.buttonText } variant={ 'h4'}>{t('Stake.Exit')}</Typography>
           </Button>
@@ -582,7 +582,7 @@ class Stake extends Component {
             className={ classes.stakeButton }
             variant="outlined"
             color="secondary"
-            disabled={ loading }
+            disabled={ loading || pool.id === 'Governance V2'}
             onClick={ () => { this.onStake() } }
           >
             <Typography variant={ 'h4'}>{t('Stake.Stake')}</Typography>
